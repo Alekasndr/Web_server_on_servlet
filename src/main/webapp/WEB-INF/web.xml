@@ -12,4 +12,15 @@
         <servlet-name>HelloWorld</servlet-name>
         <url-pattern>/welcome</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetUser</servlet-name>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.AllUsersGetter</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetUser</servlet-name>
+        <url-pattern>/get</url-pattern>
+    </servlet-mapping>
+
 </web-app>

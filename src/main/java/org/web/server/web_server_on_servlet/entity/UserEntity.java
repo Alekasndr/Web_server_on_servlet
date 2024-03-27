@@ -2,6 +2,7 @@ package org.web.server.web_server_on_servlet.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @ToString
+@RequiredArgsConstructor
 public class UserEntity implements Serializable {
     private int id;
     private String email;
@@ -17,4 +19,11 @@ public class UserEntity implements Serializable {
 
     private PassportEntity passportEntity;
     private Set<AddressEntity> addresses;
+
+    public UserEntity(String email, String password, PassportEntity passportEntity, Set<AddressEntity> addresses) {
+        this.email = email;
+        this.password = password;
+        this.passportEntity = passportEntity;
+        this.addresses = addresses;
+    }
 }

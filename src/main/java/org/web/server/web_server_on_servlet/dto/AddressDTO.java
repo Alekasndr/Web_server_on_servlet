@@ -9,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @RequiredArgsConstructor
-public class PassportDTO {
+public class AddressDTO {
     private int user_id;
-    private String passportNumber;
+    private String address;
 }
