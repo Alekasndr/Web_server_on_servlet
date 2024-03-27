@@ -6,7 +6,6 @@ import org.web.server.web_server_on_servlet.entity.AddressEntity;
 import org.web.server.web_server_on_servlet.entity.UserEntity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class UserMapper implements Mapper<UserEntity, UserDTO> {

@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import org.web.server.web_server_on_servlet.entity.AddressEntity;
-import org.web.server.web_server_on_servlet.entity.PassportEntity;
 
 import java.util.Set;
 

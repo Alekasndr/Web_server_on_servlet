@@ -2,7 +2,6 @@ package org.web.server.web_server_on_servlet.mapper;
 
 import org.web.server.web_server_on_servlet.dto.AddressDTO;
 import org.web.server.web_server_on_servlet.entity.AddressEntity;
-import org.web.server.web_server_on_servlet.entity.PassportEntity;
 
 public class AddressMapper implements Mapper<AddressEntity, AddressDTO> {
     @Override
