@@ -2,12 +2,14 @@ package org.web.server.web_server_on_servlet.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
+@ToString
 public class UserEntity implements Serializable {
     private int id;
     private String email;

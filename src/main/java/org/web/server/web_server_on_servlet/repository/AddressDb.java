@@ -11,7 +11,7 @@ public class AddressDb {
         Set<AddressEntity> addresses = new HashSet<>();
         Connection connection = DbConnector.connection;
         try {
-            String sql = "SELECT * FROM passports WHERE user_id=?";
+            String sql = "SELECT * FROM addresses WHERE user_id=?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
