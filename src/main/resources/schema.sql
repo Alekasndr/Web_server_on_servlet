@@ -11,13 +11,13 @@ CREATE TABLE users
 
 CREATE TABLE passports
 (
-    user           INT PRIMARY KEY REFERENCES users (id),
+    user_id        INT PRIMARY KEY REFERENCES users (id),
     passportNumber VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE addresses
 (
     id      SERIAL PRIMARY KEY,
-    user    INT REFERENCES users (id),
+    user_id INT REFERENCES users (id),
     address VARCHAR(255) NOT NULL
 );
