@@ -62,4 +62,15 @@ public class PassportDb {
         }
         return 0;
     }
+
+    public static int deleteAll() {
+        Connection connection = DbConnector.connection;
+        String sql = "DELETE FROM passports";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            return preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
 }
