@@ -17,6 +17,6 @@ public class UserDTO {
     private String email;
     private String password;
 
-    private PassportEntity passportEntity;
-    private Set<AddressEntity> addresses;
+    private PassportDTO passportDTO;
+    private Set<AddressDTO> addresses;
 }

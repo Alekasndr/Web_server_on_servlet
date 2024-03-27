@@ -62,7 +62,7 @@ public class PassportDb {
         }
         return 0;
     }
-
+    
     public static int clearTable() {
         Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM passports";
