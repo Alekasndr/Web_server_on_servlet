@@ -1,6 +1,7 @@
 package org.web.server.web_server_on_servlet.repository;
 
 import org.web.server.web_server_on_servlet.entity.AddressEntity;
+import org.web.server.web_server_on_servlet.utils.DbConnector;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -27,5 +28,56 @@ public class AddressDb {
             System.out.println(e);
         }
         return addresses;
+    }
+
+    public static int addAddressToUser(AddressEntity addressEntity) {
+        Connection connection = DbConnector.connection;
+        String sql = "INSERT INTO addresses (user_id, address) Values (?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, addressEntity.getUser_id());
+            preparedStatement.setString(2, addressEntity.getAddress());
+            return preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
+    public static int updateAddressToUser(AddressEntity addressEntity) {
+        Connection connection = DbConnector.connection;
+        String sql = "UPDATE addresses SET user_id = ?, address = ? WHERE user_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, addressEntity.getUser_id());
+            preparedStatement.setString(2, addressEntity.getAddress());
+            preparedStatement.setInt(3, addressEntity.getUser_id());
+            return preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
+    public static int deleteAllFromUser(int user_id) {
+        Connection connection = DbConnector.connection;
+        String sql = "DELETE FROM addresses WHERE user_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, user_id);
+            return preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
+    public static int deleteOneFromUser(AddressEntity addressEntity) {
+        Connection connection = DbConnector.connection;
+        String sql = "DELETE FROM addresses WHERE address = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, addressEntity.getAddress());
+            return preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
     }
 }

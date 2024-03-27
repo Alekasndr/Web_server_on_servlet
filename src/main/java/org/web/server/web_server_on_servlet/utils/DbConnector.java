@@ -1,4 +1,4 @@
-package org.web.server.web_server_on_servlet.repository;
+package org.web.server.web_server_on_servlet.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

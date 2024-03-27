@@ -3,6 +3,7 @@ package org.web.server.web_server_on_servlet.repository;
 import org.web.server.web_server_on_servlet.entity.AddressEntity;
 import org.web.server.web_server_on_servlet.entity.PassportEntity;
 import org.web.server.web_server_on_servlet.entity.UserEntity;
+import org.web.server.web_server_on_servlet.utils.DbConnector;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ public class UserDb {
                 int id = resultSet.getInt(1);
                 String email = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                PassportEntity passportEntity = PassportDb.getPassportByUserId(id);
+                PassportEntity passportEntity = PassportDb.getByUserId(id);
                 Set<AddressEntity> addresses = AddressDb.getAllAddressesById(id);
                 UserEntity user = new UserEntity(id, email, password, passportEntity, addresses);
                 users.add(user);
