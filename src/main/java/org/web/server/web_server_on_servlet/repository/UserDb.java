@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class UserDb {
-    public static ArrayList<UserEntity> getAllUsers() {
+    public static ArrayList<UserEntity> getAll() {
         ArrayList<UserEntity> users = new ArrayList<>();
         Connection connection = DbConnector.connectionDB();
         try {
@@ -20,8 +20,8 @@ public class UserDb {
                 int id = resultSet.getInt(1);
                 String email = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                PassportEntity passportEntity = PassportDb.getByUserId(id);
-                Set<AddressEntity> addresses = AddressDb.getAllAddressesById(id);
+                PassportEntity passportEntity = PassportDb.get(id);
+                Set<AddressEntity> addresses = AddressDb.getAll(id);
                 UserEntity user = new UserEntity(id, email, password, passportEntity, addresses);
                 users.add(user);
             }
@@ -31,7 +31,7 @@ public class UserDb {
         return users;
     }
 
-    public static UserEntity getUserByEmail(String email) {
+    public static UserEntity get(String email) {
         UserEntity userEntity = null;
         Connection connection = DbConnector.connectionDB();
         String sql = "SELECT * FROM users WHERE email=?";
@@ -42,8 +42,8 @@ public class UserDb {
                 int id = resultSet.getInt(1);
                 String emailC = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                PassportEntity passportEntity = PassportDb.getByUserId(id);
-                Set<AddressEntity> addresses = AddressDb.getAllAddressesById(id);
+                PassportEntity passportEntity = PassportDb.get(id);
+                Set<AddressEntity> addresses = AddressDb.getAll(id);
                 userEntity = new UserEntity(id, emailC, password, passportEntity, addresses);
             }
         } catch (SQLException e) {
@@ -58,9 +58,9 @@ public class UserDb {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, userEntity.getEmail());
             preparedStatement.setString(2, userEntity.getPassword());
-            PassportDb.insert(new PassportEntity(userEntity.getId(), userEntity.getPassportEntity().getPassportNumber()));
+            PassportDb.add(new PassportEntity(userEntity.getId(), userEntity.getPassportEntity().getPassportNumber()));
             for (AddressEntity addressEntity : userEntity.getAddresses()) {
-                AddressDb.addAddressToUser(addressEntity);
+                AddressDb.add(addressEntity);
             }
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
@@ -77,9 +77,9 @@ public class UserDb {
             preparedStatement.setString(2, userEntity.getPassword());
             preparedStatement.setString(3, userEntity.getEmail());
             PassportDb.update(new PassportEntity(userEntity.getId(), userEntity.getPassportEntity().getPassportNumber()));
-            AddressDb.deleteAllFromUser(userEntity.getId());
+            AddressDb.deleteAll(userEntity.getId());
             for (AddressEntity addressEntity : userEntity.getAddresses()) {
-                AddressDb.addAddressToUser(addressEntity);
+                AddressDb.add(addressEntity);
             }
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
@@ -88,14 +88,14 @@ public class UserDb {
         return 0;
     }
 
-    public static int deleteUserByEmail(String email) {
+    public static int delete(String email) {
         Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM users WHERE email = ?";
-        int id = getUserByEmail(email).getId();
+        int id = get(email).getId();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
             PassportDb.delete(id);
-            AddressDb.deleteAllFromUser(id);
+            AddressDb.deleteAll(id);
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex);
@@ -103,12 +103,12 @@ public class UserDb {
         return 0;
     }
 
-    public static int deleteAllUsers() {
+    public static int clearTable() {
         Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM users";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            PassportDb.deleteAll();
-            AddressDb.deleteAll();
+            PassportDb.clearTable();
+            AddressDb.clearTable();
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex);

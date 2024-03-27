@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PassportDb {
-    public static PassportEntity getByUserId(int id) throws SQLException {
+    public static PassportEntity get(int id) throws SQLException {
         PassportEntity passportEntity = null;
         Connection connection = DbConnector.connectionDB();
         String sql = "SELECT * FROM passports WHERE user_id=?";
@@ -38,7 +38,7 @@ public class PassportDb {
         return 0;
     }
 
-    public static int insert(PassportEntity passportEntity) {
+    public static int add(PassportEntity passportEntity) {
         Connection connection = DbConnector.connectionDB();
         String sql = "INSERT INTO passports (user_id, passportnumber) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -63,7 +63,7 @@ public class PassportDb {
         return 0;
     }
 
-    public static int deleteAll() {
+    public static int clearTable() {
         Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM passports";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

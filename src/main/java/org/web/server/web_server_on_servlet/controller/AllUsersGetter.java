@@ -14,7 +14,7 @@ public class AllUsersGetter extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
-        String string = new Gson().toJson(UserDb.getAllUsers());
+        String string = new Gson().toJson(UserDb.getAll());
         out.write(string);
     }
 }
