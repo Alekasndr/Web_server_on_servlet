@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DbConnector {
-    public static Connection connection = null;
+    private static Connection connection = null;
     private static String dbName = "web_server";
     private static String username = "postgres";
     private static String password = "1111";

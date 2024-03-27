@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class PassportDb {
     public static PassportEntity getByUserId(int id) throws SQLException {
         PassportEntity passportEntity = null;
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "SELECT * FROM passports WHERE user_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
@@ -26,7 +26,7 @@ public class PassportDb {
     }
 
     public static int update(PassportEntity passportEntity) {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "UPDATE passports SET passportnumber = ? WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, passportEntity.getPassportNumber());
@@ -39,7 +39,7 @@ public class PassportDb {
     }
 
     public static int insert(PassportEntity passportEntity) {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "INSERT INTO passports (user_id, passportnumber) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, passportEntity.getUser_id());
@@ -52,7 +52,7 @@ public class PassportDb {
     }
 
     public static int delete(int user_id) {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM passports WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, user_id);
@@ -64,7 +64,7 @@ public class PassportDb {
     }
 
     public static int deleteAll() {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM passports";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return preparedStatement.executeUpdate();

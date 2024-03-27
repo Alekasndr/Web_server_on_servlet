@@ -12,7 +12,7 @@ import java.util.Set;
 public class UserDb {
     public static ArrayList<UserEntity> getAllUsers() {
         ArrayList<UserEntity> users = new ArrayList<>();
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
@@ -33,7 +33,7 @@ public class UserDb {
 
     public static UserEntity getUserByEmail(String email) {
         UserEntity userEntity = null;
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "SELECT * FROM users WHERE email=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
@@ -53,7 +53,7 @@ public class UserDb {
     }
 
     public static int add(UserEntity userEntity) {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "INSERT INTO users (email, password) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, userEntity.getEmail());
@@ -70,7 +70,7 @@ public class UserDb {
     }
 
     public static int update(UserEntity userEntity) {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "UPDATE users SET email = ?, password = ? WHERE email = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, userEntity.getEmail());
@@ -89,7 +89,7 @@ public class UserDb {
     }
 
     public static int deleteUserByEmail(String email) {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM users WHERE email = ?";
         int id = getUserByEmail(email).getId();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -104,7 +104,7 @@ public class UserDb {
     }
 
     public static int deleteAllUsers() {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM users";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             PassportDb.deleteAll();

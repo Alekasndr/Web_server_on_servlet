@@ -10,7 +10,7 @@ import java.util.Set;
 public class AddressDb {
     public static Set<AddressEntity> getAllAddressesById(int id) throws SQLException {
         Set<AddressEntity> addresses = new HashSet<>();
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         try {
             String sql = "SELECT * FROM addresses WHERE user_id=?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -31,7 +31,7 @@ public class AddressDb {
     }
 
     public static int addAddressToUser(AddressEntity addressEntity) {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "INSERT INTO addresses (user_id, address) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, addressEntity.getUser_id());
@@ -44,7 +44,7 @@ public class AddressDb {
     }
 
     public static int updateAddressToUser(AddressEntity addressEntity) {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "UPDATE addresses SET user_id = ?, address = ? WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, addressEntity.getUser_id());
@@ -58,7 +58,7 @@ public class AddressDb {
     }
 
     public static int deleteAllFromUser(int user_id) {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM addresses WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, user_id);
@@ -70,7 +70,7 @@ public class AddressDb {
     }
 
     public static int deleteOneFromUser(AddressEntity addressEntity) {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM addresses WHERE address = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, addressEntity.getAddress());
@@ -82,7 +82,7 @@ public class AddressDb {
     }
 
     public static int deleteAll() {
-        Connection connection = DbConnector.connection;
+        Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM addresses";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return preparedStatement.executeUpdate();
