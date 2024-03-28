@@ -1,7 +1,6 @@
 package org.web.server.web_server_on_servlet.repository;
 
 import org.web.server.web_server_on_servlet.entity.PassportEntity;
-import org.web.server.web_server_on_servlet.utils.DbConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +8,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PassportDb {
+    public static int addPassport(PassportEntity passportEntity) {
+        Connection connection = DbConnector.connectionDB();
+        String sql = "INSERT INTO passports (user_id, passportnumber) Values (?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, passportEntity.getUser_id());
+            preparedStatement.setString(2, passportEntity.getPassportNumber());
+            return preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
     public static PassportEntity get(int id) throws SQLException {
         PassportEntity passportEntity = null;
         Connection connection = DbConnector.connectionDB();
@@ -21,6 +33,8 @@ public class PassportDb {
                 String passportNumber = resultSet.getString(2);
                 passportEntity = new PassportEntity(user_id, passportNumber);
             }
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
         return passportEntity;
     }
@@ -62,7 +76,7 @@ public class PassportDb {
         }
         return 0;
     }
-    
+
     public static int clearTable() {
         Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM passports";

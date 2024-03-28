@@ -8,30 +8,16 @@ import org.web.server.web_server_on_servlet.entity.UserEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserMapper implements Mapper<UserEntity, UserDTO> {
-    private PassportMapper passportMapper;
-    private AddressMapper addressMapper;
-
-    public UserMapper(PassportMapper passportMapper, AddressMapper addressMapper) {
-        this.passportMapper = passportMapper;
-        this.addressMapper = addressMapper;
-    }
-
-    @Override
-    public UserEntity toEntity(UserDTO dto) {
-        Set<AddressEntity> addressEntities = new HashSet<>();
-        for (AddressDTO addressDTO : dto.getAddresses()) {
-            addressEntities.add(addressMapper.toEntity(addressDTO));
-        }
-        return new UserEntity(dto.getEmail(), dto.getPassword(), passportMapper.toEntity(dto.getPassportDTO()), addressEntities);
-    }
-
-    @Override
-    public UserDTO toDto(UserEntity entity) {
+public class UserMapper {
+    public static UserDTO toDto(UserEntity entity) {
         Set<AddressDTO> addressDTOS = new HashSet<>();
         for (AddressEntity addressDTO : entity.getAddresses()) {
-            addressDTOS.add(addressMapper.toDto(addressDTO));
+            addressDTOS.add(AddressMapper.toDto(addressDTO));
         }
-        return new UserDTO(entity.getEmail(), entity.getPassword(), passportMapper.toDto(entity.getPassportEntity()), addressDTOS);
+        return new UserDTO(entity.getEmail(), entity.getPassword(), PassportMapper.toDto(entity.getPassportEntity()), addressDTOS);
+    }
+
+    public static UserEntity toEntity(UserDTO entity) {
+        return new UserEntity(entity.getEmail(), entity.getPassword());
     }
 }

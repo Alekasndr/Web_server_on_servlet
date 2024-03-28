@@ -8,38 +8,38 @@ INSERT INTO users (email, password)
 VALUES ('Third', '3333');
 
 INSERT INTO passports (user_id, passportnumber)
-VALUES ('11', '1234');
+VALUES ('1', '1234');
 
 INSERT INTO passports (user_id, passportnumber)
-VALUES ('12', '4321');
+VALUES ('2', '4321');
 
 INSERT INTO passports (user_id, passportnumber)
-VALUES ('13', '4567');
+VALUES ('3', '4567');
 
 INSERT INTO addresses (user_id, address)
-VALUES ('11', 'address1');
+VALUES ('1', 'address1');
 
 INSERT INTO addresses (user_id, address)
-VALUES ('11', 'address2');
+VALUES ('1', 'address2');
 
 INSERT INTO addresses (user_id, address)
-VALUES ('11', 'address3');
+VALUES ('1', 'address3');
 
 INSERT INTO addresses (user_id, address)
-VALUES ('12', 'address4');
+VALUES ('2', 'address4');
 
 INSERT INTO addresses (user_id, address)
-VALUES ('12', 'address5');
+VALUES ('2', 'address5');
 
 INSERT INTO addresses (user_id, address)
-VALUES ('12', 'address6');
+VALUES ('2', 'address6');
 
 INSERT INTO addresses (user_id, address)
-VALUES ('13', 'address7');
+VALUES ('3', 'address7');
 
 INSERT INTO addresses (user_id, address)
-VALUES ('13', 'address8');
+VALUES ('3', 'address8');
 
 INSERT INTO addresses (user_id, address)
-VALUES ('13', 'address9');
+VALUES ('3', 'address9');
 ;

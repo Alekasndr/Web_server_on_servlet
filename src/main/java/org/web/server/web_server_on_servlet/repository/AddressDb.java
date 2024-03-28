@@ -1,13 +1,27 @@
 package org.web.server.web_server_on_servlet.repository;
 
 import org.web.server.web_server_on_servlet.entity.AddressEntity;
-import org.web.server.web_server_on_servlet.utils.DbConnector;
 
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
 
 public class AddressDb {
+    public static int addAll(Set<AddressEntity> addressEntities) {
+        Connection connection = DbConnector.connectionDB();
+        for (AddressEntity addressEntity : addressEntities) {
+            String sql = "INSERT INTO addresses (user_id, address) Values (?, ?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, addressEntity.getUser_id());
+                preparedStatement.setString(2, addressEntity.getAddress());
+                preparedStatement.executeUpdate();
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        }
+        return 1;
+    }
+
     public static Set<AddressEntity> getAll(int id) throws SQLException {
         Set<AddressEntity> addresses = new HashSet<>();
         Connection connection = DbConnector.connectionDB();

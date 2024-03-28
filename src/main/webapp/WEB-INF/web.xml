@@ -3,24 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
+
     <servlet>
-        <servlet-name>HelloWorld</servlet-name>
-        <servlet-class>org.web.server.web_server_on_servlet.HelloServlet</servlet-class>
+        <servlet-name>GetUsers</servlet-name>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.GetAllUsersServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>HelloWorld</servlet-name>
-        <url-pattern>/welcome</url-pattern>
+        <servlet-name>GetUsers</servlet-name>
+        <url-pattern>/getAll</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>GetUser</servlet-name>
-        <servlet-class>org.web.server.web_server_on_servlet.controller.AllUsersGetter</servlet-class>
+        <servlet-name>User</servlet-name>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.GetUserServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>GetUser</servlet-name>
-        <url-pattern>/get</url-pattern>
+        <servlet-name>User</servlet-name>
+        <url-pattern>/getUser</url-pattern>
     </servlet-mapping>
-
 </web-app>

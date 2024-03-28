@@ -20,6 +20,10 @@ public class UserEntity implements Serializable {
     private PassportEntity passportEntity;
     private Set<AddressEntity> addresses;
 
+    public UserEntity(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
     public UserEntity(String email, String password, PassportEntity passportEntity, Set<AddressEntity> addresses) {
         this.email = email;
         this.password = password;
