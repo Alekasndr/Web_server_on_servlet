@@ -18,7 +18,7 @@ public class UserDb {
         this.passportDb = passportDb;
     }
 
-    public Optional<UserEntity> getByEmail(String email) {
+    public UserEntity getByEmail(String email) {
         UserEntity userEntity = null;
         Connection connection = DbConnector.connectionDB();
         String sql = "SELECT * FROM users WHERE email=?";
@@ -36,11 +36,7 @@ public class UserDb {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        if (userEntity == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(userEntity);
-        }
+        return userEntity;
     }
 
     public int addUser(UserEntity userEntity) {
@@ -73,7 +69,7 @@ public class UserDb {
     public int delete(String email) {
         Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM users WHERE email = ?";
-        int id = getByEmail(email).get().getId();
+        int id = getByEmail(email).getId();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
             passportDb.delete(id);

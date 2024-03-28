@@ -27,7 +27,10 @@ public class UserService {
     }
 
     public String getUser(String email) {
-        return new Gson().toJson(UserMapper.toDto(userDb.getByEmail(email).get()));
+        if (userDb.getByEmail(email) != null) {
+            return new Gson().toJson(UserMapper.toDto(userDb.getByEmail(email)));
+        }
+        return "User doesnt exist!";
     }
 
     public String getAllUsers() {
@@ -42,10 +45,10 @@ public class UserService {
         Gson gson = new Gson();
         UserDTO userDTO = gson.fromJson(json, UserDTO.class);
 
-        if (userDb.getByEmail(userDTO.getEmail()).isEmpty()) {
+        if (userDb.getByEmail(userDTO.getEmail()) == null) {
             UserEntity userEntity = UserMapper.toEntity(userDTO);
             userDb.addUser(userEntity);
-            userEntity = userDb.getByEmail(userEntity.getEmail()).get();
+            userEntity = userDb.getByEmail(userEntity.getEmail());
 
             PassportEntity passportEntity = PassportMapper.toEntity(userEntity.getId(), userDTO.getPassportDTO());
             passportDb.addPassport(passportEntity);
@@ -60,14 +63,14 @@ public class UserService {
         Gson gson = new Gson();
         UserDTO userDTO = gson.fromJson(json, UserDTO.class);
 
-        if (!userDb.getByEmail(userDTO.getEmail()).isEmpty()) {
+        if (userDb.getByEmail(userDTO.getEmail()) != null) {
             UserEntity userEntity = UserMapper.toEntity(userDTO);
             userDb.update(userEntity);
         }
     }
 
     public void deleteUser(String email) {
-        if (!userDb.getByEmail(email).isEmpty()) {
+        if (userDb.getByEmail(email) != null) {
             userDb.delete(email);
         }
     }

@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>GetAllUsers</servlet-name>
-        <servlet-class>org.web.server.web_server_on_servlet.controller.GetAllUsersServlet</servlet-class>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.user_servlets.GetAllUsersServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetAllUsers</servlet-name>
@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>GetUser</servlet-name>
-        <servlet-class>org.web.server.web_server_on_servlet.controller.GetUserServlet</servlet-class>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.user_servlets.GetUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetUser</servlet-name>
@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>AddUser</servlet-name>
-        <servlet-class>org.web.server.web_server_on_servlet.controller.AddUserServlet</servlet-class>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.user_servlets.AddUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddUser</servlet-name>
@@ -33,7 +33,7 @@
 
     <servlet>
         <servlet-name>DeleteUser</servlet-name>
-        <servlet-class>org.web.server.web_server_on_servlet.controller.DeleteUserServlet</servlet-class>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.user_servlets.DeleteUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteUser</servlet-name>
@@ -42,10 +42,19 @@
 
     <servlet>
         <servlet-name>UpdateUser</servlet-name>
-        <servlet-class>org.web.server.web_server_on_servlet.controller.UpdateUserServlet</servlet-class>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.user_servlets.UpdateUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdateUser</servlet-name>
         <url-pattern>/updateUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdatePassport</servlet-name>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.passport_servlets.UpdatePassportServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdatePassport</servlet-name>
+        <url-pattern>/updateUsersPassport</url-pattern>
     </servlet-mapping>
 </web-app>

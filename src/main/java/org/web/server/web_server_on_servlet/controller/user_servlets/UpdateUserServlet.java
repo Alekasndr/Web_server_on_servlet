@@ -1,4 +1,4 @@
-package org.web.server.web_server_on_servlet.controller;
+package org.web.server.web_server_on_servlet.controller.user_servlets;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
