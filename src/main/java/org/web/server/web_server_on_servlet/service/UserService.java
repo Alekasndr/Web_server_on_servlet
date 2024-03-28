@@ -27,9 +27,12 @@ public class UserService {
         this.userDb = new UserDb(addressDb, passportDb);
     }
 
-    public String getUser(String email) {
-        if (userDb.getByEmail(email) != null) {
-            return new Gson().toJson(UserMapper.toDto(userDb.getByEmail(email)));
+    public String getUser(String json) {
+        Gson gson = new Gson();
+        EmailDTO emailDTO = gson.fromJson(json, EmailDTO.class);
+
+        if (userDb.getByEmail(emailDTO.getEmail()) != null) {
+            return new Gson().toJson(UserMapper.toDto(userDb.getByEmail(emailDTO.getEmail())));
         }
         return "User doesnt exist!";
     }
@@ -72,10 +75,10 @@ public class UserService {
 
     public void deleteUser(String json) {
         Gson gson = new Gson();
-        EmailDTO deleteDTO = gson.fromJson(json, EmailDTO.class);
+        EmailDTO emailDTO = gson.fromJson(json, EmailDTO.class);
 
-        if (userDb.getByEmail(deleteDTO.getEmail()) != null) {
-            userDb.delete(deleteDTO.getEmail());
+        if (userDb.getByEmail(emailDTO.getEmail()) != null) {
+            userDb.delete(emailDTO.getEmail());
         }
     }
 }

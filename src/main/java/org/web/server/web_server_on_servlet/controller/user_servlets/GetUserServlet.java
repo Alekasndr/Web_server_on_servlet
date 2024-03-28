@@ -7,6 +7,7 @@ import org.web.server.web_server_on_servlet.service.UserService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class GetUserServlet extends HttpServlet {
     UserService userService;
@@ -16,11 +17,11 @@ public class GetUserServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        String email = request.getParameter("email");
-        response.setContentType("application/json");
+        Scanner scanner = new Scanner(request.getInputStream());
+        String jsonData = scanner.useDelimiter("\\A").next();
+        scanner.close();
 
         PrintWriter out = response.getWriter();
-        out.write(userService.getUser(email));
+        out.write(userService.getUser(jsonData));
     }
 }
