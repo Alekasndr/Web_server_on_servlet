@@ -7,6 +7,7 @@ import org.web.server.web_server_on_servlet.service.UserService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class DeleteUserServlet extends HttpServlet {
     UserService userService;
@@ -16,10 +17,11 @@ public class DeleteUserServlet extends HttpServlet {
     }
 
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        String email = request.getParameter("email");
+        Scanner scanner = new Scanner(request.getInputStream());
+        String jsonData = scanner.useDelimiter("\\A").next();
+        scanner.close();
 
-        userService.deleteUser(email);
+        userService.deleteUser(jsonData);
 
         PrintWriter out = response.getWriter();
         out.write("Deleted");

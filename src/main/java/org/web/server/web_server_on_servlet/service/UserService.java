@@ -2,6 +2,7 @@ package org.web.server.web_server_on_servlet.service;
 
 import com.google.gson.Gson;
 import org.web.server.web_server_on_servlet.dto.AddressDTO;
+import org.web.server.web_server_on_servlet.dto.EmailDTO;
 import org.web.server.web_server_on_servlet.dto.UserDTO;
 import org.web.server.web_server_on_servlet.entity.PassportEntity;
 import org.web.server.web_server_on_servlet.entity.UserEntity;
@@ -69,9 +70,12 @@ public class UserService {
         }
     }
 
-    public void deleteUser(String email) {
-        if (userDb.getByEmail(email) != null) {
-            userDb.delete(email);
+    public void deleteUser(String json) {
+        Gson gson = new Gson();
+        EmailDTO deleteDTO = gson.fromJson(json, EmailDTO.class);
+
+        if (userDb.getByEmail(deleteDTO.getEmail()) != null) {
+            userDb.delete(deleteDTO.getEmail());
         }
     }
 }
