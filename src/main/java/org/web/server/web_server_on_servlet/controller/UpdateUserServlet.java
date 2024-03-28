@@ -8,7 +8,7 @@ import org.web.server.web_server_on_servlet.service.UserService;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class UserUpdateServlet extends HttpServlet {
+public class UpdateUserServlet extends HttpServlet {
     UserService userService;
 
     public void init() {
