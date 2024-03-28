@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.web.server.web_server_on_servlet.service.UserService;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class AddUserServlet extends HttpServlet {
@@ -21,5 +22,8 @@ public class AddUserServlet extends HttpServlet {
         scanner.close();
 
         userService.addUser(jsonData);
+
+        PrintWriter out = response.getWriter();
+        out.write("Added");
     }
 }

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.web.server.web_server_on_servlet.service.PassportService;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class UpdatePassportServlet extends HttpServlet {
@@ -21,5 +22,7 @@ public class UpdatePassportServlet extends HttpServlet {
         scanner.close();
 
         passportService.updatePassport(jsonData);
+        PrintWriter out = response.getWriter();
+        out.write("Updated");
     }
 }

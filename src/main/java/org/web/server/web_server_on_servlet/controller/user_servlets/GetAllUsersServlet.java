@@ -17,8 +17,8 @@ public class GetAllUsersServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
 
+        PrintWriter out = response.getWriter();
         out.write(userService.getAllUsers());
     }
 }

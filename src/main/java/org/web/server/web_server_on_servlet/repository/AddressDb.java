@@ -7,35 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class AddressDb {
-    public int add(AddressEntity addressEntity) {
-        Connection connection = DbConnector.connectionDB();
-        String sql = "INSERT INTO addresses (user_id, address) Values (?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, addressEntity.getUser_id());
-            preparedStatement.setString(2, addressEntity.getAddress());
-            return preparedStatement.executeUpdate();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return 0;
-    }
-
-    public int addAll(Set<AddressEntity> addressEntities) {
-        Connection connection = DbConnector.connectionDB();
-        for (AddressEntity addressEntity : addressEntities) {
-            String sql = "INSERT INTO addresses (user_id, address) Values (?, ?)";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setInt(1, addressEntity.getUser_id());
-                preparedStatement.setString(2, addressEntity.getAddress());
-                preparedStatement.executeUpdate();
-            } catch (Exception ex) {
-                System.out.println(ex);
-            }
-        }
-        return 1;
-    }
-
-    public Set<AddressEntity> getAll(int id) throws SQLException {
+    public Set<AddressEntity> getAll(int id) {
         Set<AddressEntity> addresses = new HashSet<>();
         Connection connection = DbConnector.connectionDB();
         try {
@@ -57,13 +29,24 @@ public class AddressDb {
         return addresses;
     }
 
-    public int update(AddressEntity addressEntity) {
+    public int add(AddressEntity addressEntity) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "UPDATE addresses SET user_id = ?, address = ? WHERE user_id = ?";
+        String sql = "INSERT INTO addresses (user_id, address) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, addressEntity.getUser_id());
             preparedStatement.setString(2, addressEntity.getAddress());
-            preparedStatement.setInt(3, addressEntity.getUser_id());
+            return preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
+    public int delete(AddressEntity addressEntity) {
+        Connection connection = DbConnector.connectionDB();
+        String sql = "DELETE FROM addresses WHERE address = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, addressEntity.getAddress());
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex);
@@ -76,18 +59,6 @@ public class AddressDb {
         String sql = "DELETE FROM addresses WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, user_id);
-            return preparedStatement.executeUpdate();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return 0;
-    }
-
-    public static int deleteOne(AddressEntity addressEntity) {
-        Connection connection = DbConnector.connectionDB();
-        String sql = "DELETE FROM addresses WHERE address = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, addressEntity.getAddress());
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex);

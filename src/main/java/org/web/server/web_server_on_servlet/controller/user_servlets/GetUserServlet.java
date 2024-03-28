@@ -17,6 +17,8 @@ public class GetUserServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json");
+
         Scanner scanner = new Scanner(request.getInputStream());
         String jsonData = scanner.useDelimiter("\\A").next();
         scanner.close();

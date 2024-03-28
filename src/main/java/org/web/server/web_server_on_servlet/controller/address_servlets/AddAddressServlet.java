@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.web.server.web_server_on_servlet.service.AddressService;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class AddAddressServlet extends HttpServlet {
@@ -21,5 +22,8 @@ public class AddAddressServlet extends HttpServlet {
         scanner.close();
 
         addressService.addressService(jsonData);
+
+        PrintWriter out = response.getWriter();
+        out.write("Added");
     }
 }
