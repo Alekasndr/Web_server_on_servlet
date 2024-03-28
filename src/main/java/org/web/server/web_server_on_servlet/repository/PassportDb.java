@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PassportDb {
-    public static int addPassport(PassportEntity passportEntity) {
+    public int addPassport(PassportEntity passportEntity) {
         Connection connection = DbConnector.connectionDB();
         String sql = "INSERT INTO passports (user_id, passportnumber) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -21,7 +21,7 @@ public class PassportDb {
         return 0;
     }
 
-    public static PassportEntity get(int id) throws SQLException {
+    public PassportEntity get(int id) throws SQLException {
         PassportEntity passportEntity = null;
         Connection connection = DbConnector.connectionDB();
         String sql = "SELECT * FROM passports WHERE user_id=?";
@@ -39,7 +39,7 @@ public class PassportDb {
         return passportEntity;
     }
 
-    public static int update(PassportEntity passportEntity) {
+    public int update(PassportEntity passportEntity) {
         Connection connection = DbConnector.connectionDB();
         String sql = "UPDATE passports SET passportnumber = ? WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -52,7 +52,7 @@ public class PassportDb {
         return 0;
     }
 
-    public static int add(PassportEntity passportEntity) {
+    public int add(PassportEntity passportEntity) {
         Connection connection = DbConnector.connectionDB();
         String sql = "INSERT INTO passports (user_id, passportnumber) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -65,7 +65,7 @@ public class PassportDb {
         return 0;
     }
 
-    public static int delete(int user_id) {
+    public int delete(int user_id) {
         Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM passports WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -77,7 +77,7 @@ public class PassportDb {
         return 0;
     }
 
-    public static int clearTable() {
+    public int clearTable() {
         Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM passports";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

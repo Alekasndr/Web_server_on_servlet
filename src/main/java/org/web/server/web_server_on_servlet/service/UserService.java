@@ -21,9 +21,9 @@ public class UserService {
     private PassportDb passportDb;
 
     public UserService() {
-        this.userDb = new UserDb();
         this.addressDb = new AddressDb();
         this.passportDb = new PassportDb();
+        this.userDb = new UserDb(addressDb, passportDb);
     }
 
     public String getUser(String email) {

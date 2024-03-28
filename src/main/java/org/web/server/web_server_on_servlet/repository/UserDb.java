@@ -10,6 +10,14 @@ import java.util.Optional;
 import java.util.Set;
 
 public class UserDb {
+    private AddressDb addressDb;
+    private PassportDb passportDb;
+
+    public UserDb(AddressDb addressDb, PassportDb passportDb) {
+        this.addressDb = addressDb;
+        this.passportDb = passportDb;
+    }
+
     public Optional<UserEntity> getByEmail(String email) {
         UserEntity userEntity = null;
         Connection connection = DbConnector.connectionDB();
@@ -21,8 +29,8 @@ public class UserDb {
                 int id = resultSet.getInt(1);
                 String email1 = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                PassportEntity passportEntity = PassportDb.get(id);
-                Set<AddressEntity> addresses = AddressDb.getAll(id);
+                PassportEntity passportEntity = passportDb.get(id);
+                Set<AddressEntity> addresses = addressDb.getAll(id);
                 userEntity = new UserEntity(id, email1, password, passportEntity, addresses);
             }
         } catch (Exception ex) {
@@ -68,8 +76,8 @@ public class UserDb {
         int id = getByEmail(email).get().getId();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
-            PassportDb.delete(id);
-            AddressDb.deleteAll(id);
+            passportDb.delete(id);
+            addressDb.deleteAll(id);
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex);
@@ -87,8 +95,8 @@ public class UserDb {
                 int id = resultSet.getInt(1);
                 String email = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                PassportEntity passportEntity = PassportDb.get(id);
-                Set<AddressEntity> addresses = AddressDb.getAll(id);
+                PassportEntity passportEntity = passportDb.get(id);
+                Set<AddressEntity> addresses = addressDb.getAll(id);
                 UserEntity user = new UserEntity(id, email, password, passportEntity, addresses);
                 users.add(user);
             }
