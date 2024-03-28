@@ -7,6 +7,7 @@ import org.web.server.web_server_on_servlet.service.AddressService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class DeleteAddressServlet extends HttpServlet {
     AddressService addressService;
@@ -16,10 +17,11 @@ public class DeleteAddressServlet extends HttpServlet {
     }
 
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        String email = request.getParameter("email");
+        Scanner scanner = new Scanner(request.getInputStream());
+        String jsonData = scanner.useDelimiter("\\A").next();
+        scanner.close();
 
-        addressService.deleteAddress(email);
+        addressService.deleteAddress(jsonData);
 
         PrintWriter out = response.getWriter();
         out.write("Deleted");
