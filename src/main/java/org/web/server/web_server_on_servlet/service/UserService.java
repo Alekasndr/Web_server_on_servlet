@@ -27,12 +27,12 @@ public class UserService {
     }
 
     public String getUser(String email) {
-        return new Gson().toJson(UserMapper.toDto(UserDb.get(email)));
+        return new Gson().toJson(UserMapper.toDto(userDb.findByEmail(email).get()));
     }
 
     public String getAllUsers() {
         List<UserDTO> userDTOs = new ArrayList<>();
-        for (UserEntity userEntity : UserDb.getAll()) {
+        for (UserEntity userEntity : userDb.getAll()) {
             userDTOs.add(UserMapper.toDto(userEntity));
         }
         return new Gson().toJson(userDTOs);
@@ -57,7 +57,7 @@ public class UserService {
     }
 
     public void deleteUser(String email) {
-        if (userDb.findByEmail(email).isEmpty()) {
+        if (!userDb.findByEmail(email).isEmpty()) {
             userDb.delete(email);
         }
     }
