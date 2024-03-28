@@ -21,7 +21,7 @@ public class PassportDb {
         return 0;
     }
 
-    public PassportEntity get(int id) throws SQLException {
+    public PassportEntity get(int id) {
         PassportEntity passportEntity = null;
         Connection connection = DbConnector.connectionDB();
         String sql = "SELECT * FROM passports WHERE user_id=?";
@@ -70,17 +70,6 @@ public class PassportDb {
         String sql = "DELETE FROM passports WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, user_id);
-            return preparedStatement.executeUpdate();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return 0;
-    }
-
-    public int clearTable() {
-        Connection connection = DbConnector.connectionDB();
-        String sql = "DELETE FROM passports";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex);
