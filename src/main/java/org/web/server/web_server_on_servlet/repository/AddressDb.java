@@ -7,6 +7,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class AddressDb {
+    public int add(AddressEntity addressEntity) {
+        Connection connection = DbConnector.connectionDB();
+        String sql = "INSERT INTO addresses (user_id, address) Values (?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, addressEntity.getUser_id());
+            preparedStatement.setString(2, addressEntity.getAddress());
+            return preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
     public static int addAll(Set<AddressEntity> addressEntities) {
         Connection connection = DbConnector.connectionDB();
         for (AddressEntity addressEntity : addressEntities) {
@@ -42,19 +55,6 @@ public class AddressDb {
             System.out.println(e);
         }
         return addresses;
-    }
-
-    public static int add(AddressEntity addressEntity) {
-        Connection connection = DbConnector.connectionDB();
-        String sql = "INSERT INTO addresses (user_id, address) Values (?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, addressEntity.getUser_id());
-            preparedStatement.setString(2, addressEntity.getAddress());
-            return preparedStatement.executeUpdate();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return 0;
     }
 
     public static int update(AddressEntity addressEntity) {

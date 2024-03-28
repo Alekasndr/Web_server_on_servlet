@@ -5,22 +5,39 @@
          version="5.0">
 
     <servlet>
-        <servlet-name>GetUsers</servlet-name>
+        <servlet-name>GetAllUsers</servlet-name>
         <servlet-class>org.web.server.web_server_on_servlet.controller.GetAllUsersServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
-        <servlet-name>GetUsers</servlet-name>
+        <servlet-name>GetAllUsers</servlet-name>
         <url-pattern>/getAll</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>User</servlet-name>
+        <servlet-name>GetUser</servlet-name>
         <servlet-class>org.web.server.web_server_on_servlet.controller.GetUserServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
-        <servlet-name>User</servlet-name>
+        <servlet-name>GetUser</servlet-name>
         <url-pattern>/getUser</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.AddUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/addUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteUser</servlet-name>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.DeleteUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteUser</servlet-name>
+        <url-pattern>/deleteUser</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public class UserDb {
-    public static Optional<UserEntity> findByEmail(String email) {
+    public Optional<UserEntity> findByEmail(String email) {
         UserEntity userEntity = null;
         Connection connection = DbConnector.connectionDB();
         String sql = "SELECT * FROM users WHERE email=?";
@@ -25,7 +25,6 @@ public class UserDb {
                 Set<AddressEntity> addresses = AddressDb.getAll(id);
                 userEntity = new UserEntity(id, email1, password, passportEntity, addresses);
             }
-            int i = 0;
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -36,12 +35,27 @@ public class UserDb {
         }
     }
 
-    public static int addUser(UserEntity userEntity) {
+    public int addUser(UserEntity userEntity) {
         Connection connection = DbConnector.connectionDB();
         String sql = "INSERT INTO users (email, password) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, userEntity.getEmail());
             preparedStatement.setString(2, userEntity.getPassword());
+            return preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
+    public int delete(String email) {
+        Connection connection = DbConnector.connectionDB();
+        String sql = "DELETE FROM users WHERE email = ?";
+        int id = get(email).getId();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, email);
+            PassportDb.delete(id);
+            AddressDb.deleteAll(id);
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
             System.out.println(ex);
@@ -64,8 +78,8 @@ public class UserDb {
                 UserEntity user = new UserEntity(id, email, password, passportEntity, addresses);
                 users.add(user);
             }
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
         return users;
     }
@@ -85,12 +99,13 @@ public class UserDb {
                 Set<AddressEntity> addresses = AddressDb.getAll(id);
                 userEntity = new UserEntity(id, emailC, password, passportEntity, addresses);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
         return userEntity;
     }
 
+    /*
     public static int add(UserEntity userEntity) {
         Connection connection = DbConnector.connectionDB();
         String sql = "INSERT INTO users (email, password) Values (?, ?)";
@@ -127,20 +142,7 @@ public class UserDb {
         return 0;
     }
 
-    public static int delete(String email) {
-        Connection connection = DbConnector.connectionDB();
-        String sql = "DELETE FROM users WHERE email = ?";
-        int id = get(email).getId();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, email);
-            PassportDb.delete(id);
-            AddressDb.deleteAll(id);
-            return preparedStatement.executeUpdate();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return 0;
-    }
+
 
     public static int clearTable() {
         Connection connection = DbConnector.connectionDB();
@@ -154,4 +156,6 @@ public class UserDb {
         }
         return 0;
     }
+
+     */
 }
