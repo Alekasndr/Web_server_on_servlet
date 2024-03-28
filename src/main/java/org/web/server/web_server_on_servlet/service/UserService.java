@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public String getUser(String email) {
-        return new Gson().toJson(UserMapper.toDto(userDb.findByEmail(email).get()));
+        return new Gson().toJson(UserMapper.toDto(userDb.getByEmail(email).get()));
     }
 
     public String getAllUsers() {
@@ -42,10 +42,10 @@ public class UserService {
         Gson gson = new Gson();
         UserDTO userDTO = gson.fromJson(json, UserDTO.class);
 
-        if (userDb.findByEmail(userDTO.getEmail()).isEmpty()) {
+        if (userDb.getByEmail(userDTO.getEmail()).isEmpty()) {
             UserEntity userEntity = UserMapper.toEntity(userDTO);
             userDb.addUser(userEntity);
-            userEntity = userDb.findByEmail(userEntity.getEmail()).get();
+            userEntity = userDb.getByEmail(userEntity.getEmail()).get();
 
             PassportEntity passportEntity = PassportMapper.toEntity(userEntity.getId(), userDTO.getPassportDTO());
             passportDb.addPassport(passportEntity);
@@ -56,8 +56,18 @@ public class UserService {
         }
     }
 
+    public void updateUser(String json) {
+        Gson gson = new Gson();
+        UserDTO userDTO = gson.fromJson(json, UserDTO.class);
+
+        if (!userDb.getByEmail(userDTO.getEmail()).isEmpty()) {
+            UserEntity userEntity = UserMapper.toEntity(userDTO);
+            userDb.update(userEntity);
+        }
+    }
+
     public void deleteUser(String email) {
-        if (!userDb.findByEmail(email).isEmpty()) {
+        if (!userDb.getByEmail(email).isEmpty()) {
             userDb.delete(email);
         }
     }

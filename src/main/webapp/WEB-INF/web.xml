@@ -40,4 +40,12 @@
         <url-pattern>/deleteUser</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UpdateUser</servlet-name>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.UserUpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateUser</servlet-name>
+        <url-pattern>/updateUser</url-pattern>
+    </servlet-mapping>
 </web-app>

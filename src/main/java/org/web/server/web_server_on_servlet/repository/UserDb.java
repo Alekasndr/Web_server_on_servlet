@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public class UserDb {
-    public Optional<UserEntity> findByEmail(String email) {
+    public Optional<UserEntity> getByEmail(String email) {
         UserEntity userEntity = null;
         Connection connection = DbConnector.connectionDB();
         String sql = "SELECT * FROM users WHERE email=?";
@@ -48,10 +48,24 @@ public class UserDb {
         return 0;
     }
 
+    public int update(UserEntity userEntity) {
+        Connection connection = DbConnector.connectionDB();
+        String sql = "UPDATE users SET email = ?, password = ? WHERE email = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, userEntity.getEmail());
+            preparedStatement.setString(2, userEntity.getPassword());
+            preparedStatement.setString(3, userEntity.getEmail());
+            return preparedStatement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return 0;
+    }
+
     public int delete(String email) {
         Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM users WHERE email = ?";
-        int id = findByEmail(email).get().getId();
+        int id = getByEmail(email).get().getId();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
             PassportDb.delete(id);
@@ -83,25 +97,4 @@ public class UserDb {
         }
         return users;
     }
-
-    /*
-    public static int update(UserEntity userEntity) {
-        Connection connection = DbConnector.connectionDB();
-        String sql = "UPDATE users SET email = ?, password = ? WHERE email = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, userEntity.getEmail());
-            preparedStatement.setString(2, userEntity.getPassword());
-            preparedStatement.setString(3, userEntity.getEmail());
-            PassportDb.update(new PassportEntity(userEntity.getId(), userEntity.getPassportEntity().getPassportNumber()));
-            AddressDb.deleteAll(userEntity.getId());
-            for (AddressEntity addressEntity : userEntity.getAddresses()) {
-                AddressDb.add(addressEntity);
-            }
-            return preparedStatement.executeUpdate();
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return 0;
-    }
-     */
 }
