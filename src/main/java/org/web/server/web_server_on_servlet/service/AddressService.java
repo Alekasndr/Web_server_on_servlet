@@ -2,7 +2,7 @@ package org.web.server.web_server_on_servlet.service;
 
 import com.google.gson.Gson;
 import org.web.server.web_server_on_servlet.dto.AddressDTO;
-import org.web.server.web_server_on_servlet.dto.UserDTO;
+import org.web.server.web_server_on_servlet.dto.UserAddressDTO;
 import org.web.server.web_server_on_servlet.entity.UserEntity;
 import org.web.server.web_server_on_servlet.mapper.AddressMapper;
 import org.web.server.web_server_on_servlet.repository.AddressDb;
@@ -20,11 +20,11 @@ public class AddressService {
 
     public void addressService(String json) {
         Gson gson = new Gson();
-        UserDTO userDTO = gson.fromJson(json, UserDTO.class);
+        UserAddressDTO userAddressDTO = gson.fromJson(json, UserAddressDTO.class);
 
-        UserEntity userEntity = userDb.getByEmail(userDTO.getEmail());
+        UserEntity userEntity = userDb.getByEmail(userAddressDTO.getEmail());
         if (userEntity != null) {
-            for (AddressDTO addressDTO : userDTO.getAddresses()) {
+            for (AddressDTO addressDTO : userAddressDTO.getAddresses()) {
                 addressDb.add(AddressMapper.toEntity(userEntity.getId(), addressDTO));
             }
         }

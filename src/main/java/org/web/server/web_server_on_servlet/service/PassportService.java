@@ -1,7 +1,8 @@
 package org.web.server.web_server_on_servlet.service;
 
 import com.google.gson.Gson;
-import org.web.server.web_server_on_servlet.dto.UserDTO;
+import org.web.server.web_server_on_servlet.dto.PassportDTO;
+import org.web.server.web_server_on_servlet.dto.UserPassportDTO;
 import org.web.server.web_server_on_servlet.entity.PassportEntity;
 import org.web.server.web_server_on_servlet.entity.UserEntity;
 import org.web.server.web_server_on_servlet.mapper.PassportMapper;
@@ -20,11 +21,11 @@ public class PassportService {
 
     public void updatePassport(String json) {
         Gson gson = new Gson();
-        UserDTO userDTO = gson.fromJson(json, UserDTO.class);
+        UserPassportDTO userPassportDTO = gson.fromJson(json, UserPassportDTO.class);
 
-        UserEntity userEntity = userDb.getByEmail(userDTO.getEmail());
+        UserEntity userEntity = userDb.getByEmail(userPassportDTO.getEmail());
         if (userEntity != null) {
-            PassportEntity passportEntity = PassportMapper.toEntity(userEntity.getId(), userDTO.getPassportDTO());
+            PassportEntity passportEntity = PassportMapper.toEntity(userEntity.getId(), new PassportDTO(userPassportDTO.getPassportNumber()));
             passportDb.update(passportEntity);
         }
     }
