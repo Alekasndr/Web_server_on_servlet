@@ -51,10 +51,31 @@
 
     <servlet>
         <servlet-name>UpdatePassport</servlet-name>
-        <servlet-class>org.web.server.web_server_on_servlet.controller.passport_servlets.UpdatePassportServlet</servlet-class>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.passport_servlets.UpdatePassportServlet
+        </servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdatePassport</servlet-name>
         <url-pattern>/updateUsersPassport</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddAddress</servlet-name>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.address_servlets.AddAddressServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddAddress</servlet-name>
+        <url-pattern>/addAddress</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteAddress</servlet-name>
+        <servlet-class>org.web.server.web_server_on_servlet.controller.address_servlets.DeleteAddressServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteAddress</servlet-name>
+        <url-pattern>/deleteAddress</url-pattern>
     </servlet-mapping>
 </web-app>
