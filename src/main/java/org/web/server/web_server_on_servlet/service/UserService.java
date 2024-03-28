@@ -35,7 +35,6 @@ public class UserService {
         for (UserEntity userEntity : UserDb.getAll()) {
             userDTOs.add(UserMapper.toDto(userEntity));
         }
-
         return new Gson().toJson(userDTOs);
     }
 
@@ -58,6 +57,8 @@ public class UserService {
     }
 
     public void deleteUser(String email) {
-        userDb.delete(email);
+        if (userDb.findByEmail(email).isEmpty()) {
+            userDb.delete(email);
+        }
     }
 }
