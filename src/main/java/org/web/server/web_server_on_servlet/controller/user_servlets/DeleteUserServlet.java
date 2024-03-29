@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.web.server.web_server_on_servlet.service.UserService;
+import org.web.server.web_server_on_servlet.service.UserServiceImp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +14,7 @@ public class DeleteUserServlet extends HttpServlet {
     UserService userService;
 
     public void init() {
-        userService = new UserService();
+        userService = new UserServiceImp();
     }
 
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {

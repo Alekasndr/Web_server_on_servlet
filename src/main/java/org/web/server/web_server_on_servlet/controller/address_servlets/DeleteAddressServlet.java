@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.web.server.web_server_on_servlet.service.AddressService;
+import org.web.server.web_server_on_servlet.service.AddressServiceImp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +14,7 @@ public class DeleteAddressServlet extends HttpServlet {
     AddressService addressService;
 
     public void init() {
-        addressService = new AddressService();
+        addressService = new AddressServiceImp();
     }
 
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.web.server.web_server_on_servlet.service.PassportService;
+import org.web.server.web_server_on_servlet.service.PassportServiceImp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +14,7 @@ public class UpdatePassportServlet extends HttpServlet {
     PassportService passportService;
 
     public void init() {
-        passportService = new PassportService();
+        passportService = new PassportServiceImp();
     }
 
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -22,6 +23,7 @@ public class UpdatePassportServlet extends HttpServlet {
         scanner.close();
 
         passportService.updatePassport(jsonData);
+
         PrintWriter out = response.getWriter();
         out.write("Updated");
     }
