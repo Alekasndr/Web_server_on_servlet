@@ -20,8 +20,7 @@ public class UserDAO {
 
     public Optional<User> getByEmail(String email) {
         Connection connection = DbConnector.connectionDB();
-        //JOIN
-        String sql = "SELECT * FROM users WHERE email=?";
+        String sql = "SELECT * FROM users INNER JOIN passports ON users.id = passports.user_id WHERE email=? ";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -29,8 +28,7 @@ public class UserDAO {
                 int id = resultSet.getInt(1);
                 String resultEmail = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                //Заменить
-                Passport passport = passportDAO.get(id);
+                Passport passport = new Passport(id, resultSet.getString(5));
                 Set<Address> addresses = addressDAO.getAll(id);
                 return Optional.of(new User(id, resultEmail, password, passport, addresses));
             }
@@ -90,16 +88,17 @@ public class UserDAO {
     public ArrayList<User> getAll() {
         ArrayList<User> users = new ArrayList<>();
         Connection connection = DbConnector.connectionDB();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
-            while (resultSet.next()) {
+
+        String sql = "SELECT * FROM users INNER JOIN passports ON users.id = passports.user_id";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
                 int id = resultSet.getInt(1);
-                String email = resultSet.getString(2);
+                String resultEmail = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                Passport passport = passportDAO.get(id);
+                Passport passport = new Passport(id, resultSet.getString(5));
                 Set<Address> addresses = addressDAO.getAll(id);
-                User user = new User(id, email, password, passport, addresses);
+                User user = new User(id, resultEmail, password, passport, addresses);
                 users.add(user);
             }
         } catch (Exception ex) {
