@@ -1,14 +1,12 @@
 package org.web.server.web_server_on_servlet.service;
 
 import com.google.gson.Gson;
+import org.web.server.web_server_on_servlet.dao.*;
 import org.web.server.web_server_on_servlet.dto.AddressDTO;
 import org.web.server.web_server_on_servlet.dto.DeleteDTO;
 import org.web.server.web_server_on_servlet.dto.UserAddressDTO;
 import org.web.server.web_server_on_servlet.entity.User;
 import org.web.server.web_server_on_servlet.mapper.AddressMapper;
-import org.web.server.web_server_on_servlet.dao.AddressDAO;
-import org.web.server.web_server_on_servlet.dao.PassportDAO;
-import org.web.server.web_server_on_servlet.dao.UserDAO;
 
 import java.util.Optional;
 
@@ -17,8 +15,8 @@ public class AddressServiceImp implements AddressService {
     private AddressDAO addressDAO;
 
     public AddressServiceImp() {
-        this.addressDAO = new AddressDAO();
-        this.userDAO = new UserDAO(addressDAO, new PassportDAO());
+        this.addressDAO = new AddressDAOImp();
+        this.userDAO = new UserDAOImp(addressDAO, new PassportDAOImp());
     }
 
     public void addressService(String userAddressData) {

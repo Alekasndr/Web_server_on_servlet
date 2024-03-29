@@ -1,6 +1,7 @@
 package org.web.server.web_server_on_servlet.service;
 
 import com.google.gson.Gson;
+import org.web.server.web_server_on_servlet.dao.*;
 import org.web.server.web_server_on_servlet.dto.AddressDTO;
 import org.web.server.web_server_on_servlet.dto.EmailDTO;
 import org.web.server.web_server_on_servlet.dto.UserDTO;
@@ -10,9 +11,6 @@ import org.web.server.web_server_on_servlet.entity.User;
 import org.web.server.web_server_on_servlet.mapper.AddressMapper;
 import org.web.server.web_server_on_servlet.mapper.PassportMapper;
 import org.web.server.web_server_on_servlet.mapper.UserMapper;
-import org.web.server.web_server_on_servlet.dao.AddressDAO;
-import org.web.server.web_server_on_servlet.dao.PassportDAO;
-import org.web.server.web_server_on_servlet.dao.UserDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,9 +23,9 @@ public class UserServiceImp implements UserService {
     private PassportDAO passportDAO;
 
     public UserServiceImp() {
-        this.addressDAO = new AddressDAO();
-        this.passportDAO = new PassportDAO();
-        this.userDAO = new UserDAO(addressDAO, passportDAO);
+        this.addressDAO = new AddressDAOImp();
+        this.passportDAO = new PassportDAOImp();
+        this.userDAO = new UserDAOImp(addressDAO, passportDAO);
     }
 
     public String getUser(String emailData) {
