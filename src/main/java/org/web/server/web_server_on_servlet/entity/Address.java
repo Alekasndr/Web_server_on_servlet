@@ -8,13 +8,15 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 @RequiredArgsConstructor
-public class AddressEntity implements Serializable {
-    @NonNull
+public class Address implements Serializable {
+
     private int id;
+
     private int user_id;
+
     private String address;
 
-    public AddressEntity(int user_id, String address) {
+    public Address(int user_id, String address) {
         this.user_id = user_id;
         this.address = address;
     }

@@ -12,9 +12,17 @@ import java.util.Set;
 @ToString
 @RequiredArgsConstructor
 public class UserDTO {
+
     private String email;
+
     private String password;
 
     private PassportDTO passportDTO;
+
     private Set<AddressDTO> addresses;
+
+    public UserDTO(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

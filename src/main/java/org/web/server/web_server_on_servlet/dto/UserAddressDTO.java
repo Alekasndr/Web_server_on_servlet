@@ -10,6 +10,8 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 public class UserAddressDTO {
+
     private String email;
+
     private Set<AddressDTO> addresses;
 }

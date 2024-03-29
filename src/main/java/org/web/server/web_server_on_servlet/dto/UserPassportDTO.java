@@ -8,6 +8,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class UserPassportDTO {
+
     private String email;
+
     private String passportNumber;
 }

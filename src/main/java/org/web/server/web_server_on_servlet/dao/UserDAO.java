@@ -1,67 +1,73 @@
-package org.web.server.web_server_on_servlet.repository;
+package org.web.server.web_server_on_servlet.dao;
 
-import org.web.server.web_server_on_servlet.entity.AddressEntity;
-import org.web.server.web_server_on_servlet.entity.PassportEntity;
-import org.web.server.web_server_on_servlet.entity.UserEntity;
+import org.web.server.web_server_on_servlet.entity.Address;
+import org.web.server.web_server_on_servlet.entity.Passport;
+import org.web.server.web_server_on_servlet.entity.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
 
-public class UserDb {
-    private AddressDb addressDb;
-    private PassportDb passportDb;
+public class UserDAO {
+    private AddressDAO addressDAO;
+    private PassportDAO passportDAO;
 
-    public UserDb(AddressDb addressDb, PassportDb passportDb) {
-        this.addressDb = addressDb;
-        this.passportDb = passportDb;
+    public UserDAO(AddressDAO addressDAO, PassportDAO passportDAO) {
+        this.addressDAO = addressDAO;
+        this.passportDAO = passportDAO;
     }
 
-    public UserEntity getByEmail(String email) {
-        UserEntity userEntity = null;
+    public Optional<User> getByEmail(String email) {
         Connection connection = DbConnector.connectionDB();
+        //JOIN
         String sql = "SELECT * FROM users WHERE email=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int id = resultSet.getInt(1);
-                String email1 = resultSet.getString(2);
+                String resultEmail = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                PassportEntity passportEntity = passportDb.get(id);
-                Set<AddressEntity> addresses = addressDb.getAll(id);
-                userEntity = new UserEntity(id, email1, password, passportEntity, addresses);
+                //Заменить
+                Passport passport = passportDAO.get(id);
+                Set<Address> addresses = addressDAO.getAll(id);
+                return Optional.of(new User(id, resultEmail, password, passport, addresses));
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
-        return userEntity;
+        return Optional.empty();
     }
 
-    public int addUser(UserEntity userEntity) {
+    public int addUser(User user) throws SQLException {
         Connection connection = DbConnector.connectionDB();
         String sql = "INSERT INTO users (email, password) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, userEntity.getEmail());
-            preparedStatement.setString(2, userEntity.getPassword());
-            return preparedStatement.executeUpdate();
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.executeUpdate();
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                }
+            }
         } catch (Exception ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
-        return 0;
+        throw new SQLException("User creation error: failed to get ID.");
     }
 
-    public int update(UserEntity userEntity) {
+    public int update(User user) {
         Connection connection = DbConnector.connectionDB();
         String sql = "UPDATE users SET email = ?, password = ? WHERE email = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, userEntity.getEmail());
-            preparedStatement.setString(2, userEntity.getPassword());
-            preparedStatement.setString(3, userEntity.getEmail());
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getEmail());
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
         return 0;
     }
@@ -69,20 +75,20 @@ public class UserDb {
     public int delete(String email) {
         Connection connection = DbConnector.connectionDB();
         String sql = "DELETE FROM users WHERE email = ?";
-        int id = getByEmail(email).getId();
+        int id = getByEmail(email).get().getId();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
-            passportDb.delete(id);
-            addressDb.deleteAll(id);
+            passportDAO.delete(id);
+            addressDAO.deleteAll(id);
             return preparedStatement.executeUpdate();
         } catch (Exception ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
         return 0;
     }
 
-    public ArrayList<UserEntity> getAll() {
-        ArrayList<UserEntity> users = new ArrayList<>();
+    public ArrayList<User> getAll() {
+        ArrayList<User> users = new ArrayList<>();
         Connection connection = DbConnector.connectionDB();
         try {
             Statement statement = connection.createStatement();
@@ -91,13 +97,13 @@ public class UserDb {
                 int id = resultSet.getInt(1);
                 String email = resultSet.getString(2);
                 String password = resultSet.getString(3);
-                PassportEntity passportEntity = passportDb.get(id);
-                Set<AddressEntity> addresses = addressDb.getAll(id);
-                UserEntity user = new UserEntity(id, email, password, passportEntity, addresses);
+                Passport passport = passportDAO.get(id);
+                Set<Address> addresses = addressDAO.getAll(id);
+                User user = new User(id, email, password, passport, addresses);
                 users.add(user);
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
         return users;
     }

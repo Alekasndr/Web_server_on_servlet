@@ -10,6 +10,8 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 public class DeleteDTO {
+
     private String email;
+
     private String deleteName;
 }

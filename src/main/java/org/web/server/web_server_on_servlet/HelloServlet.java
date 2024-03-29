@@ -7,7 +7,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import org.web.server.web_server_on_servlet.entity.PassportEntity;
+import org.web.server.web_server_on_servlet.entity.Passport;
 
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class HelloServlet extends HttpServlet {
@@ -22,14 +22,14 @@ public class HelloServlet extends HttpServlet {
         // Hello
         PrintWriter out = response.getWriter();
 
-        PassportEntity passportEntity = new PassportEntity(1, "2134");
-        PassportEntity passportEntity2 = new PassportEntity(2, "2134");
-        PassportEntity passportEntity3 = new PassportEntity(2, "2134");
+        Passport passport = new Passport(1, "2134");
+        Passport passport2 = new Passport(2, "2134");
+        Passport passport3 = new Passport(2, "2134");
 
-        List<PassportEntity> list = new ArrayList<>();
-        list.add(passportEntity);
-        list.add(passportEntity2);
-        list.add(passportEntity3);
+        List<Passport> list = new ArrayList<>();
+        list.add(passport);
+        list.add(passport2);
+        list.add(passport3);
 
 
         String string = new Gson().toJson(list);

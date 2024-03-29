@@ -7,7 +7,9 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @ToString
-public class AddressDTO {
+public class UserUpdateDTO {
 
-    private String address;
+    private String email;
+
+    private String password;
 }

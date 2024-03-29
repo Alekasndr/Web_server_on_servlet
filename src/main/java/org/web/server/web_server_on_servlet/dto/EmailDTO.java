@@ -8,5 +8,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class EmailDTO {
-    String email;
+
+    private String email;
 }

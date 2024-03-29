@@ -9,7 +9,9 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @ToString
-public class PassportEntity implements Serializable {
+public class Passport implements Serializable {
+
     private int user_id;
+
     private String passportNumber;
 }

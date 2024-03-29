@@ -4,29 +4,31 @@ import com.google.gson.Gson;
 import org.web.server.web_server_on_servlet.dto.AddressDTO;
 import org.web.server.web_server_on_servlet.dto.DeleteDTO;
 import org.web.server.web_server_on_servlet.dto.UserAddressDTO;
-import org.web.server.web_server_on_servlet.entity.UserEntity;
+import org.web.server.web_server_on_servlet.entity.User;
 import org.web.server.web_server_on_servlet.mapper.AddressMapper;
-import org.web.server.web_server_on_servlet.repository.AddressDb;
-import org.web.server.web_server_on_servlet.repository.PassportDb;
-import org.web.server.web_server_on_servlet.repository.UserDb;
+import org.web.server.web_server_on_servlet.dao.AddressDAO;
+import org.web.server.web_server_on_servlet.dao.PassportDAO;
+import org.web.server.web_server_on_servlet.dao.UserDAO;
+
+import java.util.Optional;
 
 public class AddressService {
-    private UserDb userDb;
-    private AddressDb addressDb;
+    private UserDAO userDAO;
+    private AddressDAO addressDAO;
 
     public AddressService() {
-        this.addressDb = new AddressDb();
-        this.userDb = new UserDb(addressDb, new PassportDb());
+        this.addressDAO = new AddressDAO();
+        this.userDAO = new UserDAO(addressDAO, new PassportDAO());
     }
 
     public void addressService(String json) {
         Gson gson = new Gson();
         UserAddressDTO userAddressDTO = gson.fromJson(json, UserAddressDTO.class);
 
-        UserEntity userEntity = userDb.getByEmail(userAddressDTO.getEmail());
-        if (userEntity != null) {
+        Optional<User> optionalUser = userDAO.getByEmail(userAddressDTO.getEmail());
+        if (optionalUser.isPresent()) {
             for (AddressDTO addressDTO : userAddressDTO.getAddresses()) {
-                addressDb.add(AddressMapper.toEntity(userEntity.getId(), addressDTO));
+                addressDAO.add(AddressMapper.toEntity(optionalUser.get().getId(), addressDTO));
             }
         }
     }
@@ -35,9 +37,9 @@ public class AddressService {
         Gson gson = new Gson();
         DeleteDTO deleteDTO = gson.fromJson(json, DeleteDTO.class);
 
-        UserEntity userEntity = userDb.getByEmail(deleteDTO.getEmail());
-        if (userEntity != null) {
-            addressDb.delete(AddressMapper.toEntity(userEntity.getId(), new AddressDTO(deleteDTO.getDeleteName())));
+        Optional<User> optionalUser = userDAO.getByEmail(deleteDTO.getEmail());
+        if (optionalUser.isPresent()) {
+            addressDAO.delete(AddressMapper.toEntity(optionalUser.get().getId(), new AddressDTO(deleteDTO.getDeleteName())));
         }
     }
 }

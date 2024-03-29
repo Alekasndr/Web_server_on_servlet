@@ -12,15 +12,19 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 @RequiredArgsConstructor
-public class UserEntity implements Serializable {
+public class User implements Serializable {
+    //uui id
     private int id;
+
     private String email;
+
     private String password;
 
-    private PassportEntity passportEntity;
-    private Set<AddressEntity> addresses;
+    private Passport passport;
 
-    public UserEntity(String email, String password) {
+    private Set<Address> addresses;
+
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
