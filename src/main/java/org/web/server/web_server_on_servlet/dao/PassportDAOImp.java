@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 public class PassportDAOImp implements PassportDAO{
     public int addPassport(Passport passport) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "INSERT INTO passports (user_id, passportnumber) Values (?, ?)";
+        String sql = "INSERT INTO passport (user_id, passportnumber) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, passport.getUser_id());
             preparedStatement.setString(2, passport.getPassportNumber());
@@ -23,7 +23,7 @@ public class PassportDAOImp implements PassportDAO{
     public Passport get(int id) {
         Passport passport = null;
         Connection connection = DbConnector.connectionDB();
-        String sql = "SELECT * FROM passports WHERE user_id=?";
+        String sql = "SELECT * FROM passport WHERE user_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -40,7 +40,7 @@ public class PassportDAOImp implements PassportDAO{
 
     public int update(Passport passport) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "UPDATE passports SET passportnumber = ? WHERE user_id = ?";
+        String sql = "UPDATE passport SET passportnumber = ? WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, passport.getPassportNumber());
             preparedStatement.setInt(2, passport.getUser_id());
@@ -53,7 +53,7 @@ public class PassportDAOImp implements PassportDAO{
 
     public int add(Passport passport) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "INSERT INTO passports (user_id, passportnumber) Values (?, ?)";
+        String sql = "INSERT INTO passport (user_id, passportnumber) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, passport.getUser_id());
             preparedStatement.setString(2, passport.getPassportNumber());
@@ -66,7 +66,7 @@ public class PassportDAOImp implements PassportDAO{
 
     public int delete(int user_id) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "DELETE FROM passports WHERE user_id = ?";
+        String sql = "DELETE FROM passport WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, user_id);
             return preparedStatement.executeUpdate();
