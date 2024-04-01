@@ -11,7 +11,7 @@ public class AddressDAOImp implements AddressDAO{
         Set<Address> addresses = new HashSet<>();
         Connection connection = DbConnector.connectionDB();
         try {
-            String sql = "SELECT * FROM addresses WHERE user_id=?";
+            String sql = "SELECT * FROM address WHERE user_id=?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setInt(1, id);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -31,7 +31,7 @@ public class AddressDAOImp implements AddressDAO{
 
     public int add(Address address) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "INSERT INTO addresses (user_id, address) Values (?, ?)";
+        String sql = "INSERT INTO address (user_id, address) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, address.getUser_id());
             preparedStatement.setString(2, address.getAddress());
@@ -44,7 +44,7 @@ public class AddressDAOImp implements AddressDAO{
 
     public int delete(Address address) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "DELETE FROM addresses WHERE address = ?";
+        String sql = "DELETE FROM address WHERE address = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, address.getAddress());
             return preparedStatement.executeUpdate();
@@ -56,7 +56,7 @@ public class AddressDAOImp implements AddressDAO{
 
     public int deleteAll(int user_id) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "DELETE FROM addresses WHERE user_id = ?";
+        String sql = "DELETE FROM address WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, user_id);
             return preparedStatement.executeUpdate();

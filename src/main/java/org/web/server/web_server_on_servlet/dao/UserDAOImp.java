@@ -20,7 +20,7 @@ public class UserDAOImp implements UserDAO{
 
     public Optional<User> getByEmail(String email) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "SELECT * FROM users INNER JOIN passports ON users.id = passports.user_id WHERE email=? ";
+        String sql = "SELECT * FROM \"user\" INNER JOIN passport ON \"user\".id = passport.user_id WHERE email=? ";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -40,7 +40,7 @@ public class UserDAOImp implements UserDAO{
 
     public int addUser(User user) throws SQLException {
         Connection connection = DbConnector.connectionDB();
-        String sql = "INSERT INTO users (email, password) Values (?, ?)";
+        String sql = "INSERT INTO \"user\" (email, password) Values (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getPassword());
@@ -58,7 +58,7 @@ public class UserDAOImp implements UserDAO{
 
     public int update(User user) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "UPDATE users SET email = ?, password = ? WHERE email = ?";
+        String sql = "UPDATE \"user\" SET email = ?, password = ? WHERE email = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getPassword());
@@ -72,7 +72,7 @@ public class UserDAOImp implements UserDAO{
 
     public int delete(String email) {
         Connection connection = DbConnector.connectionDB();
-        String sql = "DELETE FROM users WHERE email = ?";
+        String sql = "DELETE FROM \"user\" WHERE email = ?";
         int id = getByEmail(email).get().getId();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
@@ -89,7 +89,7 @@ public class UserDAOImp implements UserDAO{
         ArrayList<User> users = new ArrayList<>();
         Connection connection = DbConnector.connectionDB();
 
-        String sql = "SELECT * FROM users INNER JOIN passports ON users.id = passports.user_id";
+        String sql = "SELECT * FROM \"user\" INNER JOIN passport ON \"user\".id = passport.user_id";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
