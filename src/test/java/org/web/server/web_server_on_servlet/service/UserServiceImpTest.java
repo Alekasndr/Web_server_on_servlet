@@ -1,6 +1,5 @@
 package org.web.server.web_server_on_servlet.service;
 
-import com.google.gson.Gson;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,13 +10,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.web.server.web_server_on_servlet.dao.AddressDAOImp;
 import org.web.server.web_server_on_servlet.dao.PassportDAOImp;
 import org.web.server.web_server_on_servlet.dao.UserDAOImp;
-import org.web.server.web_server_on_servlet.dto.EmailDTO;
-import org.web.server.web_server_on_servlet.dto.UserDTO;
-import org.web.server.web_server_on_servlet.dto.UserUpdateDTO;
 import org.web.server.web_server_on_servlet.entity.Address;
 import org.web.server.web_server_on_servlet.entity.Passport;
 import org.web.server.web_server_on_servlet.entity.User;
-import org.web.server.web_server_on_servlet.mapper.UserMapper;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
