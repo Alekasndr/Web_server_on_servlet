@@ -98,14 +98,6 @@ public class UserServiceImpTest {
                 "    ]\n" +
                 "}";
 
-        Passport passport = new Passport(1, "1234");
-        Address address = new Address(0, 1, "12121");
-        Address address1 = new Address(0, 1, "РµРЅsafsfР№С†");
-        Set<Address> addresses = new HashSet<>();
-        addresses.add(address);
-        addresses.add(address1);
-
-        User user = new User(1, "qwert", "22222", passport, addresses);
         User user1 = new User(0, "qwert", "22222", null, null);
 
         when(userDAOImp.getByEmail(any()))
