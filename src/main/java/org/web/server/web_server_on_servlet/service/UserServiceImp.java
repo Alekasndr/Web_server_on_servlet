@@ -32,9 +32,9 @@ public class UserServiceImp implements UserService {
         Gson gson = new Gson();
         EmailDTO emailDTO = gson.fromJson(emailData, EmailDTO.class);
 
-        User user = userDAO.getByEmail(emailDTO.getEmail()).get();
-        if (user != null) {
-            return new Gson().toJson(UserMapper.toDto(user));
+        Optional<User> optionalUser = userDAO.getByEmail(emailDTO.getEmail());
+        if (optionalUser.isPresent()) {
+            return new Gson().toJson(UserMapper.toDto(optionalUser.get()));
         }
         return "User doesnt exist!";
     }
@@ -53,7 +53,7 @@ public class UserServiceImp implements UserService {
 
         try {
             Optional<User> optionalUser = userDAO.getByEmail(userDTO.getEmail());
-            if (optionalUser.isPresent()) {
+            if (optionalUser.isEmpty()) {
                 User user = UserMapper.toEntity(userDTO);
 
                 int createdUserId = userDAO.addUser(user);

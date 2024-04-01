@@ -92,7 +92,7 @@ public class UserDAOImp implements UserDAO{
         String sql = "SELECT * FROM \"user\" INNER JOIN passport ON \"user\".id = passport.user_id";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String resultEmail = resultSet.getString(2);
                 String password = resultSet.getString(3);
