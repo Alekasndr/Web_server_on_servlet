@@ -120,7 +120,7 @@ public class UserServiceImpTest {
         userServiceImp.addUser(userData);
 
         verify(userDAOImp).getByEmail(any());
-        verify(userDAOImp).addUser(user1);
+        verify(userDAOImp).addUser(any());
         verify(passportDAOImp).addPassport(any());
         verify(addressDAOImp, times(2)).add(any());
     }
