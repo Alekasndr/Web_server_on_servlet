@@ -1,10 +1,10 @@
-INSERT INTO "user" (email, password)
+INSERT INTO users (email, password)
 VALUES ('First', '1111');
 
-INSERT INTO "user" (email, password)
+INSERT INTO users (email, password)
 VALUES ('Second', '2222');
 
-INSERT INTO "user" (email, password)
+INSERT INTO users (email, password)
 VALUES ('Third', '3333');
 
 INSERT INTO passport (user_id, passportnumber)
@@ -42,4 +42,3 @@ VALUES ('3', 'address8');
 
 INSERT INTO address (user_id, address)
 VALUES ('3', 'address9');
-;
