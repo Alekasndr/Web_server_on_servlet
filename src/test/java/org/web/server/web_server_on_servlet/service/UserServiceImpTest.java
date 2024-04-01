@@ -11,9 +11,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.web.server.web_server_on_servlet.dao.AddressDAOImp;
 import org.web.server.web_server_on_servlet.dao.PassportDAOImp;
 import org.web.server.web_server_on_servlet.dao.UserDAOImp;
+import org.web.server.web_server_on_servlet.dto.EmailDTO;
+import org.web.server.web_server_on_servlet.dto.UserDTO;
+import org.web.server.web_server_on_servlet.dto.UserUpdateDTO;
 import org.web.server.web_server_on_servlet.entity.Address;
 import org.web.server.web_server_on_servlet.entity.Passport;
 import org.web.server.web_server_on_servlet.entity.User;
+import org.web.server.web_server_on_servlet.mapper.UserMapper;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -124,5 +128,61 @@ public class UserServiceImpTest {
         verify(userDAOImp).addUser(user1);
         verify(passportDAOImp).addPassport(any());
         verify(addressDAOImp, times(2)).add(any());
+    }
+
+    @Test
+    public void updateUserTest() {
+        String userUpdateData = "{\n" +
+                "    \"email\": \"qwert\",\n" +
+                "    \"password\": \"22222\"\n" +
+                "\n" +
+                "}";
+
+        Passport passport = new Passport(1, "1234");
+        Address address = new Address(0, 1, "12121");
+        Address address1 = new Address(0, 1, "РµРЅsafsfР№С†");
+        Set<Address> addresses = new HashSet<>();
+        addresses.add(address);
+        addresses.add(address1);
+
+        User user = new User(1, "qwert", "22222", passport, addresses);
+
+        when(userDAOImp.getByEmail(any()))
+                .thenReturn(Optional.of(user));
+        when(userDAOImp.update(any()))
+                .thenReturn(1);
+
+
+        userServiceImp.updateUser(userUpdateData);
+
+        verify(userDAOImp).getByEmail(any());
+        verify(userDAOImp).update(any());
+    }
+
+    @Test
+    public void deleteUserTest() {
+        String emailData = "{\n" +
+                "    \"email\": \"Forth\"\n" +
+                "}";
+
+        Passport passport = new Passport(1, "1234");
+        Address address = new Address(0, 1, "12121");
+        Address address1 = new Address(0, 1, "РµРЅsafsfР№С†");
+        Set<Address> addresses = new HashSet<>();
+        addresses.add(address);
+        addresses.add(address1);
+
+        User user = new User(1, "qwert", "22222", passport, addresses);
+
+        when(userDAOImp.getByEmail(any()))
+                .thenReturn(Optional.of(user));
+        when(userDAOImp.delete(any()))
+                .thenReturn(1);
+
+
+        userServiceImp.deleteUser(emailData);
+
+        verify(userDAOImp).getByEmail(any());
+        verify(userDAOImp).delete(any());
     }
 }
