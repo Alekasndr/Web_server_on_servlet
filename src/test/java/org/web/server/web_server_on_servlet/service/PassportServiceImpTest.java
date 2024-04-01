@@ -1,21 +1,16 @@
 package org.web.server.web_server_on_servlet.service;
 
-import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.web.server.web_server_on_servlet.dao.AddressDAOImp;
 import org.web.server.web_server_on_servlet.dao.PassportDAOImp;
 import org.web.server.web_server_on_servlet.dao.UserDAOImp;
-import org.web.server.web_server_on_servlet.dto.PassportDTO;
-import org.web.server.web_server_on_servlet.dto.UserPassportDTO;
 import org.web.server.web_server_on_servlet.entity.Address;
 import org.web.server.web_server_on_servlet.entity.Passport;
 import org.web.server.web_server_on_servlet.entity.User;
-import org.web.server.web_server_on_servlet.mapper.PassportMapper;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -27,7 +22,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PassportServiceImpTest {
-
     @Mock
     private PassportDAOImp passportDAOImp = Mockito.mock(PassportDAOImp.class);
 

@@ -22,7 +22,7 @@ public class AddAddressServlet extends HttpServlet {
         String jsonData = scanner.useDelimiter("\\A").next();
         scanner.close();
 
-        addressService.addressService(jsonData);
+        addressService.addAddress(jsonData);
 
         PrintWriter out = response.getWriter();
         out.write("Added");
