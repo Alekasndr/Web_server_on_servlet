@@ -109,7 +109,7 @@ public class UserServiceImpTest {
         User user1 = new User(0, "qwert", "22222", null, null);
 
         when(userDAOImp.getByEmail(any()))
-                .thenReturn(Optional.of(user));
+                .thenReturn(Optional.empty());
         when(userDAOImp.addUser(user1))
                 .thenReturn(1);
         when(passportDAOImp.addPassport(any()))
