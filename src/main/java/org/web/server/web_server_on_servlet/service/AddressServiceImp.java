@@ -19,7 +19,7 @@ public class AddressServiceImp implements AddressService {
         this.userDAO = new UserDAOImp(addressDAO, new PassportDAOImp());
     }
 
-    public void addressService(String userAddressData) {
+    public void addAddress(String userAddressData) {
         Gson gson = new Gson();
         UserAddressDTO userAddressDTO = gson.fromJson(userAddressData, UserAddressDTO.class);
 
