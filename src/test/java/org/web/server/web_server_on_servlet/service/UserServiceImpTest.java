@@ -139,7 +139,6 @@ public class UserServiceImpTest {
         when(userDAOImp.update(any()))
                 .thenReturn(1);
 
-
         userServiceImp.updateUser(userUpdateData);
 
         verify(userDAOImp).getByEmail(any());
@@ -165,7 +164,6 @@ public class UserServiceImpTest {
                 .thenReturn(Optional.of(user));
         when(userDAOImp.delete(any()))
                 .thenReturn(1);
-
 
         userServiceImp.deleteUser(emailData);
 

@@ -3,7 +3,7 @@ package org.web.server.web_server_on_servlet.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-class DbConnector {
+public class DbConnector {
     private static Connection connection;
     private static String dbName = "web_server";
     private static String username = "postgres";

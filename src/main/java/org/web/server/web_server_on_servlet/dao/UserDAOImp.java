@@ -30,7 +30,8 @@ public class UserDAOImp implements UserDAO {
                 String password = resultSet.getString(3);
                 Passport passport = new Passport(id, resultSet.getString(5));
                 Set<Address> addresses = addressDAO.getAll(id);
-                return Optional.of(new User(id, resultEmail, password, passport, addresses));
+                User user = new User(id, resultEmail, password, passport, addresses);
+                return Optional.of(user);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
