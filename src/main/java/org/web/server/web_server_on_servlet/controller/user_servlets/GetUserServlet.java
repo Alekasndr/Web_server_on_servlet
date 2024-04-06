@@ -13,6 +13,13 @@ import java.util.Scanner;
 public class GetUserServlet extends HttpServlet {
     UserService userService;
 
+    public GetUserServlet() {
+    }
+
+    public GetUserServlet(UserService userService) {
+        this.userService = userService;
+    }
+
     public void init() {
         userService = new UserServiceImp();
     }
@@ -25,6 +32,7 @@ public class GetUserServlet extends HttpServlet {
         scanner.close();
 
         PrintWriter out = response.getWriter();
-        out.write(userService.getUser(jsonData));
+        String outString = userService.getUser(jsonData);
+        out.write(outString);
     }
 }

@@ -25,6 +25,7 @@ public class AddUserServlet extends HttpServlet {
         userService.addUser(jsonData);
 
         PrintWriter out = response.getWriter();
+        response.setStatus(201);
         out.write("Added");
     }
 }

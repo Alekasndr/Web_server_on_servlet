@@ -34,7 +34,8 @@ public class UserServiceImp implements UserService {
 
         Optional<User> optionalUser = userDAO.getByEmail(emailDTO.getEmail());
         if (optionalUser.isPresent()) {
-            return new Gson().toJson(UserMapper.toDto(optionalUser.get()));
+            UserDTO userDTO = UserMapper.toDto(optionalUser.get());
+            return gson.toJson(userDTO);
         }
         return "User doesnt exist!";
     }

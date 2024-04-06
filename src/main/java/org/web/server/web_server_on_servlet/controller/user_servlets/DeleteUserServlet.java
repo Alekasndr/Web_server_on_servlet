@@ -25,6 +25,7 @@ public class DeleteUserServlet extends HttpServlet {
         userService.deleteUser(jsonData);
 
         PrintWriter out = response.getWriter();
+        response.setStatus(202);
         out.write("Deleted");
     }
 }
