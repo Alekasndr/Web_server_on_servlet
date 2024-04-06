@@ -13,6 +13,13 @@ import java.util.Scanner;
 public class DeleteUserServlet extends HttpServlet {
     UserService userService;
 
+    public DeleteUserServlet() {
+    }
+
+    public DeleteUserServlet(UserService userService) {
+        this.userService = userService;
+    }
+
     public void init() {
         userService = new UserServiceImp();
     }
