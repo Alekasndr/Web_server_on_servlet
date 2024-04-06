@@ -12,6 +12,12 @@ import java.io.PrintWriter;
 public class GetAllUsersServlet extends HttpServlet {
     UserService userService;
 
+    public GetAllUsersServlet() {
+    }
+
+    public GetAllUsersServlet(UserService userService) {
+        this.userService = userService;
+    }
     public void init() {
         userService = new UserServiceImp();
     }
