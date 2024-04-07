@@ -6,11 +6,11 @@ import java.util.Set;
 
 public interface AddressDAO {
 
-    public Set<Address> getAll(int id);
+    Set<Address> getAll(int id);
 
-    public int add(Address address);
+    int add(Address address);
 
-    public int delete(Address address);
+    int delete(Address address);
 
-    public int deleteAll(int user_id);
+    int deleteAll(int user_id);
 }

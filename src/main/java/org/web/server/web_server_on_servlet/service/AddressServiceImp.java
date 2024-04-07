@@ -23,21 +23,24 @@ public class AddressServiceImp implements AddressService {
         Gson gson = new Gson();
         UserAddressDTO userAddressDTO = gson.fromJson(userAddressData, UserAddressDTO.class);
 
-        Optional<User> optionalUser = userDAO.getByEmail(userAddressDTO.getEmail());
-        if (optionalUser.isPresent()) {
-            for (AddressDTO addressDTO : userAddressDTO.getAddresses()) {
-                addressDAO.add(AddressMapper.toEntity(optionalUser.get().getId(), addressDTO));
-            }
-        }
+        userDAO.getByEmail(userAddressDTO.getEmail())
+                .ifPresent(user -> {
+                    for (AddressDTO addressDTO : userAddressDTO.getAddresses()) {
+                        addressDAO.add(AddressMapper.toEntity(user.getId(), addressDTO));
+                    }
+                });
     }
 
     public void deleteAddress(String deleteAddressData) {
         Gson gson = new Gson();
         DeleteDTO deleteDTO = gson.fromJson(deleteAddressData, DeleteDTO.class);
 
-        Optional<User> optionalUser = userDAO.getByEmail(deleteDTO.getEmail());
-        if (optionalUser.isPresent()) {
-            addressDAO.delete(AddressMapper.toEntity(optionalUser.get().getId(), new AddressDTO(deleteDTO.getDeleteName())));
-        }
+        userDAO.getByEmail(deleteDTO.getEmail())
+                .ifPresent(
+                        user ->
+                                addressDAO.delete(
+                                        AddressMapper.toEntity(user.getId(), new AddressDTO(deleteDTO.getDeleteName()))
+                                )
+                );
     }
 }

@@ -8,7 +8,7 @@ public class AddressMapper {
         return new AddressDTO(entity.getAddress());
     }
 
-    public static Address toEntity(int user_id, AddressDTO addressDTO) {
-        return new Address(user_id, addressDTO.getAddress());
+    public static Address toEntity(int userId, AddressDTO addressDTO) {
+        return new Address(userId, addressDTO.getAddress());
     }
 }

@@ -10,20 +10,19 @@ public class AddressDAOImp implements AddressDAO{
     public Set<Address> getAll(int id) {
         Set<Address> addresses = new HashSet<>();
         Connection connection = DbConnector.connectionDB();
-        try {
-            String sql = "SELECT * FROM address WHERE user_id=?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setInt(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                while (resultSet.next()) {
-                    int address_id = resultSet.getInt(1);
-                    int user_id = resultSet.getInt(2);
-                    String passportNumber = resultSet.getString(3);
-                    Address address = new Address(address_id, user_id, passportNumber);
-                    addresses.add(address);
-                }
+        String sql = "SELECT * FROM address WHERE user_id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) { // зачем трай в трае?
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int address_id = resultSet.getInt(1);
+                int user_id = resultSet.getInt(2);
+                String passportNumber = resultSet.getString(3);
+                Address address = new Address(address_id, user_id, passportNumber);
+                addresses.add(address);
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             ex.printStackTrace();
         }
         return addresses;

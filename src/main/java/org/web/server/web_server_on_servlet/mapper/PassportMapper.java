@@ -8,7 +8,7 @@ public class PassportMapper {
         return new PassportDTO(entity.getPassportNumber());
     }
 
-    public static Passport toEntity(int user_id, PassportDTO passportDTO) {
+    public static Passport toEntity(int user_id, PassportDTO passportDTO) {// user_id не по конвенции
         return new Passport(user_id, passportDTO.getPassportNumber());
     }
 }
