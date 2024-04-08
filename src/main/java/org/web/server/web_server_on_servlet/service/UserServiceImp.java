@@ -37,7 +37,7 @@ public class UserServiceImp implements UserService {
             UserDTO userDTO = UserMapper.toDto(optionalUser.get());
             return gson.toJson(userDTO);
         }
-        return "User doesnt exist!";
+        return "User doesnt exist!"; // лучше не строку возвращать, а прокидывать исключение
     }
 
     public String getAllUsers() {

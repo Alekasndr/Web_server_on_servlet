@@ -6,9 +6,8 @@ import lombok.ToString;
 
 import java.util.Set;
 
-@Data
+@Data // тут уже есть @ToString
 @AllArgsConstructor
-@ToString
 public class DeleteDTO {
 
     private String email;

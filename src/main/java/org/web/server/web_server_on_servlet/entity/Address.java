@@ -6,8 +6,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-@ToString
-@RequiredArgsConstructor
+@RequiredArgsConstructor // а какие тут поля required? @AllArgsConstructor достаточно
 public class Address implements Serializable {
 
     private int id;

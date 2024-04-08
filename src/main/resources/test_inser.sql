@@ -1,5 +1,7 @@
 INSERT INTO "user" (email, password)
-VALUES ('First', '1111');
+VALUES ('First', '1111'),
+       ('Second', '2222'),
+       ('Third', '3333'); -- и тд, так меньше места будет скрипт щанимать
 
 INSERT INTO "user" (email, password)
 VALUES ('Second', '2222');

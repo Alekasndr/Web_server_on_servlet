@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AddressServiceImpTest {
+class AddressServiceImpTest {
     @Mock
     private AddressDAOImp addressDAOImp = Mockito.mock(AddressDAOImp.class);
 
@@ -31,8 +31,8 @@ public class AddressServiceImpTest {
     private AddressServiceImp addressServiceImp = new AddressServiceImp();
 
     @Test
-    public void addAddressTest() {
-        String userAddressData = "{\n" +
+    void addAddressTest() {
+        String userAddressData = "{\n" + // можно в отдельный файл вынести
                 "        \"email\": \"qwert\",\n" +
                 "        \"addresses\": [\n" +
                 "            {\n" +
