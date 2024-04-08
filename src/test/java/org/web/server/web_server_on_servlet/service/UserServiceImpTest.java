@@ -1,5 +1,8 @@
 package org.web.server.web_server_on_servlet.service;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,11 +17,13 @@ import org.web.server.web_server_on_servlet.entity.Address;
 import org.web.server.web_server_on_servlet.entity.Passport;
 import org.web.server.web_server_on_servlet.entity.User;
 
+import java.io.FileReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.io.*;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -53,7 +58,20 @@ public class UserServiceImpTest {
                 .thenReturn(Optional.of(user));
         UserServiceImp userService = userServiceImp;
 
-        String gettedUser = "{\"email\":\"email\",\"password\":\"password\",\"passportDTO\":{\"passportNumber\":\"1234\"},\"addresses\":[{\"address\":\"qwer\"}]}";
+
+        Gson gson = new Gson();
+        String gettedUser = "";
+
+        try {
+            String jsonFilePath = "src/main/resources/test_jsons/unit_tests/get_user_test.json";
+            File jsonFile = new File(jsonFilePath);
+
+            JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));
+            gettedUser = gson.toJson(jsonTree);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Assertions.assertEquals(gettedUser, userService.getUser(emailData));
     }
@@ -75,28 +93,38 @@ public class UserServiceImpTest {
                 .thenReturn(users);
         UserServiceImp userService = userServiceImp;
 
-        String gettedUsers = "[{\"email\":\"email\",\"password\":\"password\",\"passportDTO\":{\"passportNumber\":\"1234\"},\"addresses\":[{\"address\":\"qwer\"}]},{\"email\":\"email1\",\"password\":\"password1\",\"passportDTO\":{\"passportNumber\":\"1234\"},\"addresses\":[{\"address\":\"qwer\"}]}]";
+        Gson gson = new Gson();
+        String gettedUsers = "";
+
+        try {
+            String jsonFilePath = "src/main/resources/test_jsons/unit_tests/get_all_users_test.json";
+            File jsonFile = new File(jsonFilePath);
+
+            JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));
+            gettedUsers = gson.toJson(jsonTree);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Assertions.assertEquals(gettedUsers, userService.getAllUsers());
     }
 
     @Test
     void addUserTest() throws SQLException {
-        String userData = "{\n" +
-                "    \"email\": \"qwert\",\n" +
-                "    \"password\": \"22222\",\n" +
-                "    \"passportDTO\": {\n" +
-                "        \"passportNumber\": \"1234\"\n" +
-                "    },\n" +
-                "    \"addresses\": [\n" +
-                "        {\n" +
-                "            \"address\": \"12121\"\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"address\": \"РµРЅsafsfР№С†\"\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
+        Gson gson = new Gson();
+        String userData = "";
+
+        try {
+            String jsonFilePath = "src/main/resources/test_jsons/unit_tests/add_user_test.json";
+            File jsonFile = new File(jsonFilePath);
+
+            JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));
+            userData = gson.toJson(jsonTree);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         User user1 = new User(0, "qwert", "22222", null, null);
 

@@ -1,5 +1,8 @@
 package org.web.server.web_server_on_servlet.service;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +15,9 @@ import org.web.server.web_server_on_servlet.entity.Address;
 import org.web.server.web_server_on_servlet.entity.Passport;
 import org.web.server.web_server_on_servlet.entity.User;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -32,17 +38,19 @@ class AddressServiceImpTest {
 
     @Test
     void addAddressTest() {
-        String userAddressData = "{\n" + // можно в отдельный файл вынести
-                "        \"email\": \"qwert\",\n" +
-                "        \"addresses\": [\n" +
-                "            {\n" +
-                "                \"address\": \"12121\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"address\": \"ddsfsfd\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "}";
+        Gson gson = new Gson();
+        String userAddressData = "";
+
+        try {
+            String jsonFilePath = "src/main/resources/test_jsons/unit_tests/add_address_test.json";
+            File jsonFile = new File(jsonFilePath);
+
+            JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));
+            userAddressData = gson.toJson(jsonTree);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Passport passport = new Passport(1, "1234");
         Address address = new Address(1, "qwer");

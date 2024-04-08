@@ -1,0 +1,12 @@
+{
+  "email": "email",
+  "password": "password",
+  "passportDTO": {
+    "passportNumber": "1234"
+  },
+  "addresses": [
+    {
+      "address": "qwer"
+    }
+  ]
+}
