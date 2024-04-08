@@ -13,6 +13,13 @@ import java.util.Scanner;
 public class AddUserServlet extends HttpServlet {
     UserService userService;
 
+    public AddUserServlet() {
+    }
+
+    public AddUserServlet(UserService userService) {
+        this.userService = userService;
+    }
+
     public void init() {
         userService = new UserServiceImp();
     }

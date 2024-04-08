@@ -13,11 +13,18 @@ import java.util.Scanner;
 public class UpdateUserServlet extends HttpServlet {
     UserService userService;
 
+    public UpdateUserServlet() {
+    }
+
+    public UpdateUserServlet(UserService userService) {
+        this.userService = userService;
+    }
+
     public void init() {
         userService = new UserServiceImp();
     }
 
-    public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Scanner scanner = new Scanner(request.getInputStream());
         String jsonData = scanner.useDelimiter("\\A").next();
         scanner.close();

@@ -1,0 +1,18 @@
+{
+  "email": "zxczxczxczx",
+  "password": "3333",
+  "passportDTO": {
+    "passportNumber": "4567"
+  },
+  "addresses": [
+    {
+      "address": "address8"
+    },
+    {
+      "address": "address7"
+    },
+    {
+      "address": "address9"
+    }
+  ]
+}
