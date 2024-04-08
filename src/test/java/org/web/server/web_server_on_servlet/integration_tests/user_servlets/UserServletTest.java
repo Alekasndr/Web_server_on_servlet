@@ -1,5 +1,8 @@
 package org.web.server.web_server_on_servlet.integration_tests.user_servlets;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,7 +44,7 @@ public class UserServletTest {
     private UserDAOImp userDAOImp = new UserDAOImp(new AddressDAOImp(), new PassportDAOImp());
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         try {
             embeddedDatabase = H2Connector.createInMemoryDatabase();
             connection = embeddedDatabase.getConnection();
@@ -54,21 +57,12 @@ public class UserServletTest {
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         if (embeddedDatabase != null) {
             embeddedDatabase.shutdown();
         }
     }
 
-    /*
-    @Test
-    public void shouldSaveAndFindUser() throws SQLException {
-        try (MockedStatic<DbConnector> dbConnectorMockedStatic = Mockito.mockStatic(DbConnector.class)) {
-            dbConnectorMockedStatic.when(DbConnector::connectionDB).thenReturn(connection);
-        }
-        userDAOImp.getByEmail("First");
-    }
-     */
     @Test
     void getUserServletTest() throws IOException {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
@@ -79,7 +73,19 @@ public class UserServletTest {
                 "    \"email\": \"Second\"\n" +
                 "}";
 
-        String out = "{\"email\":\"Second\",\"password\":\"2222\",\"passportDTO\":{\"passportNumber\":\"4321\"},\"addresses\":[{\"address\":\"address4\"},{\"address\":\"address6\"},{\"address\":\"address5\"}]}";
+        Gson gson = new Gson();
+        String out = "";
+
+        try {
+            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/get_user_servlet_test.json";
+            File jsonFile = new File(jsonFilePath);
+
+            JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));
+            out = gson.toJson(jsonTree);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         ServletInputStream servletInputStream = new DelegatingServletInputStream(new ByteArrayInputStream(in.getBytes()));
 
@@ -100,7 +106,19 @@ public class UserServletTest {
         HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
         PrintWriter printWriter = Mockito.mock(PrintWriter.class);
 
-        String out = "[{\"email\":\"Second\",\"password\":\"2222\",\"passportDTO\":{\"passportNumber\":\"4321\"},\"addresses\":[{\"address\":\"address4\"},{\"address\":\"address6\"},{\"address\":\"address5\"}]},{\"email\":\"Third\",\"password\":\"3333\",\"passportDTO\":{\"passportNumber\":\"4567\"},\"addresses\":[{\"address\":\"address8\"},{\"address\":\"address7\"},{\"address\":\"address9\"}]}]";
+        Gson gson = new Gson();
+        String out = "";
+
+        try {
+            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/get_all_and_delet_users_servlet_test.json";
+            File jsonFile = new File(jsonFilePath);
+
+            JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));
+            out = gson.toJson(jsonTree);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         when(response.getWriter())
                 .thenReturn(printWriter);
@@ -134,7 +152,20 @@ public class UserServletTest {
         deleteUserServlet.doDelete(request, response);
 
         GetAllUsersServlet getUserServlet = new GetAllUsersServlet(userService);
-        String out = "[{\"email\":\"Second\",\"password\":\"2222\",\"passportDTO\":{\"passportNumber\":\"4321\"},\"addresses\":[{\"address\":\"address4\"},{\"address\":\"address6\"},{\"address\":\"address5\"}]},{\"email\":\"Third\",\"password\":\"3333\",\"passportDTO\":{\"passportNumber\":\"4567\"},\"addresses\":[{\"address\":\"address8\"},{\"address\":\"address7\"},{\"address\":\"address9\"}]}]";
+
+        Gson gson = new Gson();
+        String out = "";
+
+        try {
+            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/get_all_and_delet_users_servlet_test.json";
+            File jsonFile = new File(jsonFilePath);
+
+            JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));
+            out = gson.toJson(jsonTree);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         getUserServlet.doGet(request, response);
 
