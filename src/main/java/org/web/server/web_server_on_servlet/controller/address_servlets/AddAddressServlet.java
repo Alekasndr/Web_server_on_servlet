@@ -13,6 +13,13 @@ import java.util.Scanner;
 public class AddAddressServlet extends HttpServlet {
     AddressService addressService;
 
+    public AddAddressServlet() {
+    }
+
+    public AddAddressServlet(AddressService addressService) {
+        this.addressService = addressService;
+    }
+
     public void init() {
         addressService = new AddressServiceImp();
     }

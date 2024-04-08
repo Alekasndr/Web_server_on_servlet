@@ -13,6 +13,13 @@ import java.util.Scanner;
 public class DeleteAddressServlet extends HttpServlet {
     AddressService addressService;
 
+    public DeleteAddressServlet() {
+    }
+
+    public DeleteAddressServlet(AddressService addressService) {
+        this.addressService = addressService;
+    }
+
     public void init() {
         addressService = new AddressServiceImp();
     }
