@@ -8,7 +8,6 @@ import java.util.Set;
 
 @Data
 @AllArgsConstructor
-@ToString
 public class UserAddressDTO {
 
     private String email;

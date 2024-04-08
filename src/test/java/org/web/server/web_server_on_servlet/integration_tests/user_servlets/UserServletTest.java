@@ -35,9 +35,6 @@ import static org.mockito.Mockito.when;
 public class UserServletTest {
     private static EmbeddedDatabase embeddedDatabase;
 
-    @Autowired
-    private static TestEntityManager entityManager;
-
     private static Connection connection;
 
     @InjectMocks
@@ -73,7 +70,7 @@ public class UserServletTest {
     }
      */
     @Test
-    public void getUserServletTest() throws IOException {
+    void getUserServletTest() throws IOException {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
         PrintWriter printWriter = Mockito.mock(PrintWriter.class);
@@ -98,7 +95,7 @@ public class UserServletTest {
     }
 
     @Test
-    public void getAllUsersServletTest() throws IOException {
+    void getAllUsersServletTest() throws IOException {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
         PrintWriter printWriter = Mockito.mock(PrintWriter.class);
@@ -115,7 +112,7 @@ public class UserServletTest {
     }
 
     @Test
-    public void deleteUserServletTest() throws IOException {
+    void deleteUserServletTest() throws IOException {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
         PrintWriter printWriter = Mockito.mock(PrintWriter.class);

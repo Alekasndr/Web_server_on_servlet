@@ -8,13 +8,13 @@ import java.util.Optional;
 
 public interface UserDAO {
 
-    public Optional<User> getByEmail(String email);
+    Optional<User> getByEmail(String email);
 
-    public int addUser(User user) throws SQLException;
+    int addUser(User user) throws SQLException;
 
-    public int update(User user);
+    int update(User user);
 
-    public int delete(String email);
+    int delete(String email);
 
-    public ArrayList<User> getAll();
+    ArrayList<User> getAll();
 }

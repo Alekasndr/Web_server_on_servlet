@@ -2,5 +2,5 @@ package org.web.server.web_server_on_servlet.service;
 
 public interface PassportService {
 
-    public void updatePassport(String userPassportData);
+    void updatePassport(String userPassportData);
 }

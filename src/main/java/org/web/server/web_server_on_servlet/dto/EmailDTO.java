@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @Data
 @AllArgsConstructor
-@ToString
 public class EmailDTO {
 
     private String email;

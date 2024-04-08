@@ -9,7 +9,6 @@ import java.util.Set;
 
 @Data
 @AllArgsConstructor
-@ToString
 @RequiredArgsConstructor
 public class UserDTO {
 

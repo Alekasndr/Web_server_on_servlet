@@ -62,7 +62,7 @@ class AddressServiceImpTest {
     }
 
     @Test
-    public void deleteAddressTest() {
+    void deleteAddressTest() {
         String deleteAddressData = "{\n" +
                 "    \"email\": \"qwert\",\n" +
                 "    \"deleteName\": \"ddsfsfd\"\n" +

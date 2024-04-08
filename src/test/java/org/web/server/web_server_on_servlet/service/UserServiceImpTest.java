@@ -38,7 +38,7 @@ public class UserServiceImpTest {
     private UserServiceImp userServiceImp = new UserServiceImp();
 
     @Test
-    public void getUserTest() {
+    void getUserTest() {
         String emailData = "{\n" +
                 "    \"email\": \"qwert\"\n" +
                 "}";
@@ -59,7 +59,7 @@ public class UserServiceImpTest {
     }
 
     @Test
-    public void getAllUsersTest() {
+    void getAllUsersTest() {
         Passport passport = new Passport(1, "1234");
         Address address = new Address(1, "qwer");
         Set<Address> addresses = new HashSet<>();
@@ -81,7 +81,7 @@ public class UserServiceImpTest {
     }
 
     @Test
-    public void addUserTest() throws SQLException {
+    void addUserTest() throws SQLException {
         String userData = "{\n" +
                 "    \"email\": \"qwert\",\n" +
                 "    \"password\": \"22222\",\n" +
@@ -118,7 +118,7 @@ public class UserServiceImpTest {
     }
 
     @Test
-    public void updateUserTest() {
+    void updateUserTest() {
         String userUpdateData = "{\n" +
                 "    \"email\": \"qwert\",\n" +
                 "    \"password\": \"22222\"\n" +
@@ -146,7 +146,7 @@ public class UserServiceImpTest {
     }
 
     @Test
-    public void deleteUserTest() {
+    void deleteUserTest() {
         String emailData = "{\n" +
                 "    \"email\": \"Forth\"\n" +
                 "}";

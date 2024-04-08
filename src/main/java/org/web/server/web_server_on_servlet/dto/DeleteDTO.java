@@ -6,7 +6,7 @@ import lombok.ToString;
 
 import java.util.Set;
 
-@Data // тут уже есть @ToString
+@Data
 @AllArgsConstructor
 public class DeleteDTO {
 

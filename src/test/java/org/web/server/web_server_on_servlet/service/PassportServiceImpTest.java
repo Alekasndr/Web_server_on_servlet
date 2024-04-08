@@ -32,7 +32,7 @@ public class PassportServiceImpTest {
     private PassportServiceImp passportServiceImp = new PassportServiceImp();
 
     @Test
-    public void updatePassportTest() {
+    void updatePassportTest() {
         String userPassportData = "{\n" +
                 "        \"email\": \"qwert\",\n" +
                 "        \"passportNumber\": \"1234\"\n" +

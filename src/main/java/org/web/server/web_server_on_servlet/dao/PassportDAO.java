@@ -4,13 +4,13 @@ import org.web.server.web_server_on_servlet.entity.Passport;
 
 public interface PassportDAO {
 
-    public int addPassport(Passport passport);
+    int addPassport(Passport passport);
 
-    public Passport get(int id);
+    Passport get(int id);
 
-    public int update(Passport passport);
+    int update(Passport passport);
 
-    public int add(Passport passport);
+    int add(Passport passport);
 
-    public int delete(int user_id);
+    int delete(int user_id);
 }

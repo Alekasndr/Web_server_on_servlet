@@ -2,10 +2,7 @@ package org.web.server.web_server_on_servlet.service;
 
 import com.google.gson.Gson;
 import org.web.server.web_server_on_servlet.dao.*;
-import org.web.server.web_server_on_servlet.dto.AddressDTO;
-import org.web.server.web_server_on_servlet.dto.EmailDTO;
-import org.web.server.web_server_on_servlet.dto.UserDTO;
-import org.web.server.web_server_on_servlet.dto.UserUpdateDTO;
+import org.web.server.web_server_on_servlet.dto.*;
 import org.web.server.web_server_on_servlet.entity.Passport;
 import org.web.server.web_server_on_servlet.entity.User;
 import org.web.server.web_server_on_servlet.mapper.AddressMapper;
@@ -37,7 +34,7 @@ public class UserServiceImp implements UserService {
             UserDTO userDTO = UserMapper.toDto(optionalUser.get());
             return gson.toJson(userDTO);
         }
-        return "User doesnt exist!"; // лучше не строку возвращать, а прокидывать исключение
+        throw new RuntimeException("User not found!");
     }
 
     public String getAllUsers() {
@@ -75,18 +72,19 @@ public class UserServiceImp implements UserService {
         Gson gson = new Gson();
         UserUpdateDTO userUpdateDTO = gson.fromJson(userUpdateData, UserUpdateDTO.class);
 
-        if (userDAO.getByEmail(userUpdateDTO.getEmail()).isPresent()) {
-            User user = UserMapper.toEntity(new UserDTO(userUpdateDTO.getEmail(), userUpdateDTO.getPassword()));
-            userDAO.update(user);
-        }
+        userDAO.getByEmail(userUpdateDTO.getEmail())
+                .ifPresent(user -> {
+                    userDAO.update(UserMapper.toEntity(new UserDTO(userUpdateDTO.getEmail(), userUpdateDTO.getPassword())));
+                });
     }
 
     public void deleteUser(String emailData) {
         Gson gson = new Gson();
         EmailDTO emailDTO = gson.fromJson(emailData, EmailDTO.class);
 
-        if (userDAO.getByEmail(emailDTO.getEmail()).isPresent()) {
-            userDAO.delete(emailDTO.getEmail());
-        }
+        userDAO.getByEmail(emailDTO.getEmail())
+                .ifPresent(user -> {
+                    userDAO.delete(user.getEmail());
+                });
     }
 }
