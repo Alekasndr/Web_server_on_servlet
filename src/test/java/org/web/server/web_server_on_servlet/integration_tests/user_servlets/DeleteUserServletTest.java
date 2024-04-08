@@ -49,7 +49,7 @@ public class DeleteUserServletTest extends ServletTest {
         String out = "";
 
         try {
-            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/all_user_out_check.json";
+            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/all_users_after_delete.json";
             File jsonFile = new File(jsonFilePath);
 
             JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));

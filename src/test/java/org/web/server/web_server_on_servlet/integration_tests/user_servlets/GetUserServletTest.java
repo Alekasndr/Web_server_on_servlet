@@ -26,7 +26,7 @@ public class GetUserServletTest extends ServletTest {
         PrintWriter printWriter = Mockito.mock(PrintWriter.class);
 
         String in = "{\n" +
-                "    \"email\": \"Second\"\n" +
+                "    \"email\": \"First\"\n" +
                 "}";
 
         Gson gson = new Gson();

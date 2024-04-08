@@ -1,4 +1,4 @@
-package org.web.server.web_server_on_servlet.integration_tests.user_servlets;
+package org.web.server.web_server_on_servlet.integration_tests.passport_servlets;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -9,10 +9,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.DelegatingServletInputStream;
+import org.web.server.web_server_on_servlet.controller.passport_servlets.UpdatePassportServlet;
 import org.web.server.web_server_on_servlet.controller.user_servlets.GetAllUsersServlet;
-import org.web.server.web_server_on_servlet.controller.user_servlets.UpdateUserServlet;
 import org.web.server.web_server_on_servlet.integration_tests.ServletTest;
-import org.web.server.web_server_on_servlet.service.UserService;
+import org.web.server.web_server_on_servlet.service.PassportServiceImp;
 import org.web.server.web_server_on_servlet.service.UserServiceImp;
 
 import java.io.*;
@@ -20,20 +20,19 @@ import java.io.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class UpdateUserServletTest extends ServletTest {
+public class UpdatePassportServletTest extends ServletTest {
     @Test
     void updateUserServletTest() throws IOException {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
         PrintWriter printWriter = Mockito.mock(PrintWriter.class);
 
-        UserService userService = new UserServiceImp();
-        UpdateUserServlet updateUserServlet = new UpdateUserServlet(userService);
+        PassportServiceImp passportServiceImp = new PassportServiceImp();
+        UpdatePassportServlet updatePassportServlet = new UpdatePassportServlet(passportServiceImp);
 
         String in = "{\n" +
-                "    \"email\": \"First\",\n" +
-                "    \"password\": \"12345678\"\n" +
-                "\n" +
+                "        \"email\": \"First\",\n" +
+                "        \"passportNumber\": \"qwrqrqwrqwrqwr\"\n" +
                 "}";
 
         ServletInputStream servletInputStream = new DelegatingServletInputStream(new ByteArrayInputStream(in.getBytes()));
@@ -43,15 +42,16 @@ public class UpdateUserServletTest extends ServletTest {
         when(response.getWriter())
                 .thenReturn(printWriter);
 
-        updateUserServlet.doPut(request, response);
+        updatePassportServlet.doPut(request, response);
 
+        UserServiceImp userService = new UserServiceImp();
         GetAllUsersServlet getUserServlet = new GetAllUsersServlet(userService);
 
         Gson gson = new Gson();
         String out = "";
 
         try {
-            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/update_user_servlet_test.json";
+            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/update_passport_servlet_test.json";
             File jsonFile = new File(jsonFilePath);
 
             JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));

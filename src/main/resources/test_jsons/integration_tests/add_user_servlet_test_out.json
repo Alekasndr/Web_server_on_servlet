@@ -1,5 +1,23 @@
 [
   {
+    "email": "First",
+    "password": "1111",
+    "passportDTO": {
+      "passportNumber": "1234"
+    },
+    "addresses": [
+      {
+        "address": "address3"
+      },
+      {
+        "address": "address2"
+      },
+      {
+        "address": "address1"
+      }
+    ]
+  },
+  {
     "email": "Second",
     "password": "2222",
     "passportDTO": {

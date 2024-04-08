@@ -58,7 +58,7 @@ public class AddUserServletTest extends ServletTest {
         String out = "";
 
         try {
-            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/all_user_out_check.json";
+            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/add_user_servlet_test_out.json";
             File jsonFile = new File(jsonFilePath);
 
             JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));

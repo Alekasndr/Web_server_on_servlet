@@ -30,7 +30,7 @@ public class GetAllUsersServletTest extends ServletTest {
         String out = "";
 
         try {
-            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/all_user_out_check.json";
+            String jsonFilePath = "src/main/resources/test_jsons/integration_tests/get_all_users_servlet_test.json";
             File jsonFile = new File(jsonFilePath);
 
             JsonElement jsonTree = new JsonParser().parse(new FileReader(jsonFile));
@@ -39,6 +39,8 @@ public class GetAllUsersServletTest extends ServletTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
 
         when(response.getWriter())
                 .thenReturn(printWriter);

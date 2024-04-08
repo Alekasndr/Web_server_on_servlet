@@ -1,0 +1,56 @@
+[
+  {
+    "email": "First",
+    "password": "1111",
+    "passportDTO": {
+      "passportNumber": "1234"
+    },
+    "addresses": [
+      {
+        "address": "address3"
+      },
+      {
+        "address": "address2"
+      },
+      {
+        "address": "address1"
+      }
+    ]
+  },
+  {
+    "email": "Second",
+    "password": "2222",
+    "passportDTO": {
+      "passportNumber": "4321"
+    },
+    "addresses": [
+      {
+        "address": "address4"
+      },
+      {
+        "address": "address6"
+      },
+      {
+        "address": "address5"
+      }
+    ]
+  },
+  {
+    "email": "Third",
+    "password": "3333",
+    "passportDTO": {
+      "passportNumber": "4567"
+    },
+    "addresses": [
+      {
+        "address": "address8"
+      },
+      {
+        "address": "address7"
+      },
+      {
+        "address": "address9"
+      }
+    ]
+  }
+]

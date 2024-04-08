@@ -13,6 +13,13 @@ import java.util.Scanner;
 public class UpdatePassportServlet extends HttpServlet {
     PassportService passportService;
 
+    public UpdatePassportServlet() {
+    }
+
+    public UpdatePassportServlet(PassportService passportService) {
+        this.passportService = passportService;
+    }
+
     public void init() {
         passportService = new PassportServiceImp();
     }
